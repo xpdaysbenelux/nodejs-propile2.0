@@ -2,7 +2,7 @@ import { IsString, ValidateNested, IsOptional, IsUUID } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
-import { PermissionsDto } from './permissions.dto';
+import { PermissionsDto } from '../../_shared/dto';
 
 export class UpdateRoleRequest {
     @IsOptional()

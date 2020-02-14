@@ -7,6 +7,7 @@ Role {
   "createdAt": 2019-06-20T08:12:59.730Z,
   "createdBy": null,
   "id": "0c1510ab-5dca-41e2-8912-ee165140ae90",
+  "isDefault": false,
   "name": "Admin",
   "permissions": Object {
     "roles": Object {
@@ -30,6 +31,7 @@ Object {
       "createdAt": 2019-10-20T08:12:59.730Z,
       "createdBy": "development@icapps.com",
       "id": "d02a468f-0225-463d-a9a4-8c7d05cbe62c",
+      "isDefault": false,
       "name": "Support",
       "permissions": Object {
         "roles": Object {
@@ -48,6 +50,7 @@ Object {
       "createdAt": 2019-08-20T08:12:59.730Z,
       "createdBy": "development@icapps.com",
       "id": "81388934-7613-4f66-a225-a0d246f65e61",
+      "isDefault": false,
       "name": "Medewerker",
       "permissions": Object {
         "roles": Object {
@@ -66,6 +69,7 @@ Object {
       "createdAt": 2019-06-20T08:12:59.730Z,
       "createdBy": null,
       "id": "0c1510ab-5dca-41e2-8912-ee165140ae90",
+      "isDefault": false,
       "name": "Admin",
       "permissions": Object {
         "roles": Object {
@@ -82,9 +86,9 @@ Object {
     },
   ],
   "meta": Object {
-    "count": 3,
+    "count": 4,
     "skip": 0,
-    "totalCount": 3,
+    "totalCount": 4,
   },
 }
 `;
@@ -96,6 +100,7 @@ Object {
       "createdAt": 2019-06-20T08:12:59.730Z,
       "createdBy": null,
       "id": "0c1510ab-5dca-41e2-8912-ee165140ae90",
+      "isDefault": false,
       "name": "Admin",
       "permissions": Object {
         "roles": Object {
@@ -112,9 +117,9 @@ Object {
     },
   ],
   "meta": Object {
-    "count": 1,
+    "count": 2,
     "skip": 2,
-    "totalCount": 3,
+    "totalCount": 4,
   },
 }
 `;
@@ -126,6 +131,7 @@ Object {
       "createdAt": 2019-06-20T08:12:59.730Z,
       "createdBy": null,
       "id": "0c1510ab-5dca-41e2-8912-ee165140ae90",
+      "isDefault": false,
       "name": "Admin",
       "permissions": Object {
         "roles": Object {
@@ -156,6 +162,7 @@ Object {
       "createdAt": 2019-10-20T08:12:59.730Z,
       "createdBy": "development@icapps.com",
       "id": "d02a468f-0225-463d-a9a4-8c7d05cbe62c",
+      "isDefault": false,
       "name": "Support",
       "permissions": Object {
         "roles": Object {
@@ -186,6 +193,7 @@ Object {
       "createdAt": 2019-06-20T08:12:59.730Z,
       "createdBy": null,
       "id": "0c1510ab-5dca-41e2-8912-ee165140ae90",
+      "isDefault": false,
       "name": "Admin",
       "permissions": Object {
         "roles": Object {
@@ -204,6 +212,7 @@ Object {
       "createdAt": 2019-08-20T08:12:59.730Z,
       "createdBy": "development@icapps.com",
       "id": "81388934-7613-4f66-a225-a0d246f65e61",
+      "isDefault": false,
       "name": "Medewerker",
       "permissions": Object {
         "roles": Object {
@@ -222,6 +231,7 @@ Object {
       "createdAt": 2019-10-20T08:12:59.730Z,
       "createdBy": "development@icapps.com",
       "id": "d02a468f-0225-463d-a9a4-8c7d05cbe62c",
+      "isDefault": false,
       "name": "Support",
       "permissions": Object {
         "roles": Object {
@@ -238,9 +248,9 @@ Object {
     },
   ],
   "meta": Object {
-    "count": 3,
+    "count": 4,
     "skip": 0,
-    "totalCount": 3,
+    "totalCount": 4,
   },
 }
 `;

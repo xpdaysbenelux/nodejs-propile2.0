@@ -10,8 +10,10 @@ definitions:
       environment:
         DB_USER: developer
         DB_PASS: developer
-        DB_NAME: silvernext_api_test
+        DB_NAME: propile2_api_test
         DB_EXTENSION: '"uuid-ossp"'
+    redis:
+      image: redis:latest
 
 installDependencies: &installDependencies
   step:
@@ -45,10 +47,11 @@ runTests: &runTests
           - node
         script:
           - yarn migrate
-          - yarn seed
+          - yarn seed:all
           - yarn test
         services:
           - postgres
+          - redis
 
 pipelines:
  pull-requests:

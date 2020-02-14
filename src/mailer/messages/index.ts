@@ -1,5 +1,6 @@
 export * from './register.message';
 export * from './request-password-reset.message';
+export * from './session-created.message';
 
 export interface MandrillMessage {
     html?: string;

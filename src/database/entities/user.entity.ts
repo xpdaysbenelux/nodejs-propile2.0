@@ -1,8 +1,9 @@
-import { Entity, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 
 import { BaseEntity } from './base.entity';
 import { UserState } from '../../_shared/constants';
 import { Role } from './role.entity';
+import { Session } from './session.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -30,4 +31,10 @@ export class User extends BaseEntity {
     @ManyToMany(() => Role)
     @JoinTable()
     roles: Role[];
+
+    @OneToMany(
+        () => Session,
+        session => session.secondPresenter,
+    )
+    sessions: Session[];
 }

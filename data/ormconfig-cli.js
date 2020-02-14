@@ -41,4 +41,12 @@ module.exports = [
             migrationsDir: `./data/seeds-dev`,
         },
     },
+    {
+        ...base,
+        name: 'seeds-prod',
+        migrations: ['./data/seeds-prod/*.ts'],
+        cli: {
+            migrationsDir: `./data/seeds-prod`,
+        },
+    },
 ];

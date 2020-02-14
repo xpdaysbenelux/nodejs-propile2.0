@@ -67,6 +67,7 @@ export class RolesQueries {
             'role.updatedBy',
             'role.name',
             'role.permissions',
+            'role.isDefault',
         ]);
     }
 }

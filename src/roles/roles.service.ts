@@ -51,7 +51,10 @@ export class RolesService {
         const { name, permissions } = body;
 
         // The role should already exist
-        const existingRole = await this.roleRepository.findOne({ id: roleId });
+        const existingRole = await this.roleRepository.findOne({
+            id: roleId,
+            isDefault: false,
+        });
         if (!existingRole) {
             throw new RoleNotFound();
         }
@@ -81,7 +84,10 @@ export class RolesService {
 
     async deleteRole(roleId: string): Promise<void> {
         // The role should already exist
-        const existingRole = await this.roleRepository.findOne({ id: roleId });
+        const existingRole = await this.roleRepository.findOne({
+            id: roleId,
+            isDefault: false,
+        });
         if (!existingRole) {
             throw new RoleNotFound();
         }

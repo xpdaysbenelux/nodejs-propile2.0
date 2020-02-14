@@ -27,4 +27,7 @@ export class Role extends BaseEntity {
      */
     @Column({ type: 'json' })
     permissions: Permissions;
+
+    @Column({ default: false })
+    isDefault: boolean;
 }

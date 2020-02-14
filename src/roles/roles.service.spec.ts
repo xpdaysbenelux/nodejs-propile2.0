@@ -19,9 +19,9 @@ import {
     createTestUserSession,
     createTestUser,
 } from '../_util/testing';
-import { PermissionsDto } from './dto';
 import { QueryBuilderMock } from '../_util/mocks';
 import { createDefaultPermissions } from '../_util/permissions.helper';
+import { PermissionsDto } from '../_shared/dto';
 
 describe('RolesService', () => {
     let rolesService: RolesService;

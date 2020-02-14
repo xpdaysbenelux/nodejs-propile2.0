@@ -1,17 +1,25 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { UserRepository, RoleRepository } from './repositories';
-import { User, Role } from './entities';
+import {
+    UserRepository,
+    RoleRepository,
+    SessionRepository,
+} from './repositories';
+import { User, Role, Session } from './entities';
 import { Config } from '../config';
 
 @Module({
     imports: [
         TypeOrmModule.forRoot({
             ...Config.database,
-            entities: [Role, User],
+            entities: [Role, User, Session],
         }),
-        TypeOrmModule.forFeature([RoleRepository, UserRepository]),
+        TypeOrmModule.forFeature([
+            RoleRepository,
+            UserRepository,
+            SessionRepository,
+        ]),
     ],
     exports: [TypeOrmModule],
 })

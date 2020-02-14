@@ -16,6 +16,7 @@ export function createTestRole(overrides?: DeepPartial<Role>): Role {
     });
     role.createdAt = new Date();
     role.updatedAt = new Date();
+    role.isDefault = false;
 
     return mergeDeepLeft(overrides, role) as Role;
 }

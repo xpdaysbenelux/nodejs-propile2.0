@@ -3,7 +3,12 @@ import * as faker from 'faker';
 
 import { RolesQueries } from './roles.queries';
 import { DatabaseModule, RoleRepository } from '../database';
-import { GetRolesRequestQuery, RolesSortColumns } from './dto';
+import {
+    GetRolesRequestQuery,
+    RolesSortColumns,
+    GetRolesResponse,
+    RoleResponse,
+} from './dto';
 import { SortDirection } from '../_shared/constants';
 
 describe('RolesQueries', () => {
@@ -53,7 +58,7 @@ describe('RolesQueries', () => {
         testQueries.forEach((query, index) => {
             it(`should return a paged list of roles: #${index}`, async () => {
                 const result = await rolesQueries.getRoles(query);
-                expect(result).toMatchSnapshot();
+                expect(omitDefaultRoleFromList(result)).toMatchSnapshot();
             });
         });
 
@@ -61,7 +66,18 @@ describe('RolesQueries', () => {
             const result = await rolesQueries.getRoles({
                 search: 'nonsensicaljibberish',
             });
-            expect(result).toMatchSnapshot();
+            expect(omitDefaultRoleFromList(result)).toMatchSnapshot();
         });
     });
+});
+
+/**
+ * Since the production seeds don't have hardcoded values for timestamps and ids, we want
+ * to omit these to have predictable test data.
+ */
+const omitDefaultRoleFromList = (
+    result: GetRolesResponse,
+): GetRolesResponse => ({
+    ...result,
+    data: result.data.filter(role => !role.isDefault),
 });
