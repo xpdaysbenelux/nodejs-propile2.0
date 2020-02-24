@@ -131,7 +131,9 @@ export class UsersService {
         await this.userRepository.save(user);
 
         // Send mail to inform user
-        this.mailerService.sendMail(registerMessage(email, resetToken, origin));
+        this.mailerService.sendMail(
+            registerMessage({ email, resetToken, frontendUrl: origin }),
+        );
     }
 
     async deactivateUser(

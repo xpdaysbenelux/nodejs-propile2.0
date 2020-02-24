@@ -80,7 +80,10 @@ describe('SessionsService', () => {
     });
 
     describe('createSession', () => {
-        /** */
+        /**
+         * A session with an original title gets created.
+         * The first presenter is already an active user. The second presenter is a new user.
+         */
         it('should create a session with an original title', async () => {
             when(sessionRepository.findOne(anything())).thenResolve(null);
             const firstPresenter = createTestUser({
@@ -123,11 +126,11 @@ describe('SessionsService', () => {
             verify(
                 mailerService.sendMail(
                     objectContaining(
-                        registerMessage(
-                            body.emailSecondPresenter,
+                        registerMessage({
+                            email: body.emailSecondPresenter,
                             resetToken,
-                            origin,
-                        ),
+                            frontendUrl: origin,
+                        }),
                     ),
                 ),
             ).once();

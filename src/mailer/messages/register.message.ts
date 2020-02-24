@@ -1,15 +1,20 @@
 import { Config } from '../../config';
 import { MandrillMessage } from './index';
 
-export function registerMessage(
-    email: string,
-    resetToken: string,
-    frontendUrl: string,
-): MandrillMessage {
-    const url = `${frontendUrl}/auth/register/${resetToken}`;
+export function registerMessage(data: RegisterMessage): MandrillMessage {
+    const url = `${data.frontendUrl}/auth/register/${data.resetToken}`;
+    console.log(url);
     return {
-        subject: `${Config.brandName} admin portal - Invitation`,
-        text: `You have been invited to the ${Config.brandName} admin portal. Complete your registration by clicking on this link and choosing a password: ${url}`,
-        to: [{ email }],
+        subject: `${Config.brandName} portal - Invitation`,
+        html: `<p>
+            You have been invited to the ${Config.brandName} portal. Complete your <a href="${url}">registration</a> by choosing a password.
+        </p>`,
+        to: [{ email: data.email }],
     };
+}
+
+interface RegisterMessage {
+    email: string;
+    resetToken: string;
+    frontendUrl: string;
 }

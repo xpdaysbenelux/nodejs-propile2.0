@@ -5,10 +5,12 @@ export function sessionCreatedForFirstPresenterMessage(
     data: SessionCreatedMessage,
 ): MandrillMessage {
     // Todo Slugify url
-    const url = `${data.frontendUrl}/session/${data.sessionTitle}`;
+    const url = `${data.frontendUrl}/auth/login`;
     return {
-        subject: `${Config.brandName} session created`,
-        text: `Congratulations, you created a session with you as main presenter. Log in or sign up at ${Config.brandName} via ${url} to view and edit your session.`,
+        subject: `${Config.brandName}: session created`,
+        html: `<p>
+            Congratulations, you created the session "${data.sessionTitle}" with yourself as main presenter. Log in at <a href="${url}" >${Config.brandName}</a> to view and edit your session.
+        </p>`,
         to: [{ email: data.email }],
     };
 }
@@ -17,10 +19,12 @@ export function sessionCreatedForSecondPresenterMessage(
     data: SessionCreatedMessage,
 ): MandrillMessage {
     // Todo Slugify url
-    const url = `${data.frontendUrl}/session/${data.sessionTitle}`;
+    const url = `${data.frontendUrl}/auth/login`;
     return {
-        subject: `${Config.brandName} session created`,
-        text: `The session ${data.sessionTitle} has been created by ${data.emailMainPresenter} with you as second presenter. Log in or sign up at ${Config.brandName} via ${url} to view and edit your session.`,
+        subject: `${Config.brandName}: session created`,
+        html: `<p>
+        The session "${data.sessionTitle}" was created by ${data.emailMainPresenter} with yourself as second presenter. Log in at <a href="${url}" >${Config.brandName}</a> to view and edit your session.
+        </p>`,
         to: [{ email: data.email }],
     };
 }

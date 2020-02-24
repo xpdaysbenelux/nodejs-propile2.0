@@ -16,6 +16,7 @@ import {
     sessionCreatedForFirstPresenterMessage,
     sessionCreatedForSecondPresenterMessage,
 } from '../mailer/messages';
+import { UserState } from '../_shared/constants';
 
 @Injectable()
 export class SessionsService {
@@ -88,6 +89,7 @@ export class SessionsService {
         });
         newUser.roles = [defaultRole];
         newUser.resetToken = await this.createResetTokenForPresenter(email);
+        newUser.state = UserState.Registering;
         return newUser;
     }
 
@@ -122,16 +124,17 @@ export class SessionsService {
                 }),
             );
         }
+
         // If the presenter is a new user, we want to send him a registration email
         presenters
-            .filter(presenter => !presenter.id)
+            .filter(presenter => presenter.state === UserState.Registering)
             .forEach(presenter =>
                 this.mailerService.sendMail(
-                    registerMessage(
-                        presenter.email,
-                        presenter.resetToken,
-                        origin,
-                    ),
+                    registerMessage({
+                        email: presenter.email,
+                        resetToken: presenter.resetToken,
+                        frontendUrl: origin,
+                    }),
                 ),
             );
     }

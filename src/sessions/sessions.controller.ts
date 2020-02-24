@@ -5,8 +5,8 @@ import { SessionsService } from './sessions.service';
 import { CreateSessionRequest } from './dto';
 import { Origin } from '../_shared/decorators';
 
-@Controller('session')
-@ApiTags('session')
+@Controller('sessions')
+@ApiTags('sessions')
 export class SessionsController {
     constructor(private readonly sessionService: SessionsService) {}
 
