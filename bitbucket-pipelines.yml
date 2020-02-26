@@ -71,7 +71,7 @@ pipelines:
           deployment: test
           script:
             - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_DEVELOP.git HEAD:master
-    release/**:
+    master:
       - <<: *installDependencies
       - <<: *build
       - <<: *lint
