@@ -75,7 +75,7 @@ export class AuthenticationService {
         try {
             await this.jwtService.verifyAsync(resetToken);
         } catch (error) {
-            console.error(error);
+            // console.error(error);
             if (error instanceof TokenExpiredError) {
                 throw new ResetTokenExpired();
             }

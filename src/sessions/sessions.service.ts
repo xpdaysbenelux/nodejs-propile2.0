@@ -98,7 +98,6 @@ export class SessionsService {
                 'intendedAudience',
             ],
         });
-
         if (!existingSession) {
             throw new SessionNotFound();
         }
@@ -208,7 +207,7 @@ export class SessionsService {
             );
     }
 
-    // We want to check if the user has admin rights to edit certain of a session
+    // We want to check if the user has admin rights to edit certain values of a session
     private checkAdminRightsOnSession(user: IUserSession): boolean {
         return user.permissions.sessions.admin;
     }
