@@ -10,7 +10,16 @@ Role {
   "isDefault": false,
   "name": "Admin",
   "permissions": Object {
+    "personas": Object {
+      "edit": true,
+      "view": true,
+    },
     "roles": Object {
+      "edit": true,
+      "view": true,
+    },
+    "sessions": Object {
+      "admin": true,
       "edit": true,
       "view": true,
     },
@@ -34,7 +43,16 @@ Object {
       "isDefault": false,
       "name": "Support",
       "permissions": Object {
+        "personas": Object {
+          "edit": false,
+          "view": true,
+        },
         "roles": Object {
+          "edit": false,
+          "view": true,
+        },
+        "sessions": Object {
+          "admin": false,
           "edit": false,
           "view": true,
         },
@@ -53,9 +71,18 @@ Object {
       "isDefault": false,
       "name": "Medewerker",
       "permissions": Object {
+        "personas": Object {
+          "edit": false,
+          "view": true,
+        },
         "roles": Object {
           "edit": false,
           "view": false,
+        },
+        "sessions": Object {
+          "admin": false,
+          "edit": false,
+          "view": true,
         },
         "users": Object {
           "edit": false,
@@ -72,7 +99,16 @@ Object {
       "isDefault": false,
       "name": "Admin",
       "permissions": Object {
+        "personas": Object {
+          "edit": true,
+          "view": true,
+        },
         "roles": Object {
+          "edit": true,
+          "view": true,
+        },
+        "sessions": Object {
+          "admin": true,
           "edit": true,
           "view": true,
         },
@@ -103,7 +139,16 @@ Object {
       "isDefault": false,
       "name": "Admin",
       "permissions": Object {
+        "personas": Object {
+          "edit": true,
+          "view": true,
+        },
         "roles": Object {
+          "edit": true,
+          "view": true,
+        },
+        "sessions": Object {
+          "admin": true,
           "edit": true,
           "view": true,
         },
@@ -134,7 +179,16 @@ Object {
       "isDefault": false,
       "name": "Admin",
       "permissions": Object {
+        "personas": Object {
+          "edit": true,
+          "view": true,
+        },
         "roles": Object {
+          "edit": true,
+          "view": true,
+        },
+        "sessions": Object {
+          "admin": true,
           "edit": true,
           "view": true,
         },
@@ -165,7 +219,16 @@ Object {
       "isDefault": false,
       "name": "Support",
       "permissions": Object {
+        "personas": Object {
+          "edit": false,
+          "view": true,
+        },
         "roles": Object {
+          "edit": false,
+          "view": true,
+        },
+        "sessions": Object {
+          "admin": false,
           "edit": false,
           "view": true,
         },
@@ -196,7 +259,16 @@ Object {
       "isDefault": false,
       "name": "Admin",
       "permissions": Object {
+        "personas": Object {
+          "edit": true,
+          "view": true,
+        },
         "roles": Object {
+          "edit": true,
+          "view": true,
+        },
+        "sessions": Object {
+          "admin": true,
           "edit": true,
           "view": true,
         },
@@ -215,9 +287,18 @@ Object {
       "isDefault": false,
       "name": "Medewerker",
       "permissions": Object {
+        "personas": Object {
+          "edit": false,
+          "view": true,
+        },
         "roles": Object {
           "edit": false,
           "view": false,
+        },
+        "sessions": Object {
+          "admin": false,
+          "edit": false,
+          "view": true,
         },
         "users": Object {
           "edit": false,
@@ -234,7 +315,16 @@ Object {
       "isDefault": false,
       "name": "Support",
       "permissions": Object {
+        "personas": Object {
+          "edit": false,
+          "view": true,
+        },
         "roles": Object {
+          "edit": false,
+          "view": true,
+        },
+        "sessions": Object {
+          "admin": false,
           "edit": false,
           "view": true,
         },

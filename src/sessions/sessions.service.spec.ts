@@ -13,7 +13,12 @@ import { JwtService } from '@nestjs/jwt';
 import * as faker from 'faker';
 
 import { SessionsService } from './sessions.service';
-import { SessionRepository, UserRepository, RoleRepository } from '../database';
+import {
+    SessionRepository,
+    UserRepository,
+    RoleRepository,
+    PersonaRepository,
+} from '../database';
 import {
     createTestUser,
     createTestRole,
@@ -34,6 +39,7 @@ describe('SessionsService', () => {
     const jwtService = mock(JwtService);
     const userRepository = mock(UserRepository);
     const roleRepository = mock(RoleRepository);
+    const personaRepository = mock(PersonaRepository);
     const mailerService = mock(MailerService);
 
     const body = {
@@ -68,6 +74,10 @@ describe('SessionsService', () => {
                 {
                     provide: getCustomRepositoryToken(RoleRepository),
                     useValue: instance(roleRepository),
+                },
+                {
+                    provide: getCustomRepositoryToken(PersonaRepository),
+                    useValue: instance(personaRepository),
                 },
             ],
         }).compile();

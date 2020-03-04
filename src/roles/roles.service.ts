@@ -5,6 +5,7 @@ import { RoleRepository, Role, UserRepository } from '../database';
 import { CreateRoleRequest, UpdateRoleRequest } from './dto';
 import { RoleNameAlreadyInUse, RoleNotFound, RoleInUse } from './errors';
 import { IUserSession } from '../_shared/constants';
+import { createDefaultPermissions } from '../_util/permissions.helper';
 
 @Injectable()
 export class RolesService {
@@ -25,16 +26,7 @@ export class RolesService {
 
         const role = new Role();
         role.name = name;
-        role.permissions = {
-            roles: {
-                view: permissions.roles?.view || false,
-                edit: permissions.roles?.edit || false,
-            },
-            users: {
-                view: permissions.users?.view || false,
-                edit: permissions.users?.edit || false,
-            },
-        };
+        role.permissions = createDefaultPermissions(permissions);
         role.createdBy = session.email;
         role.updatedBy = session.email;
 

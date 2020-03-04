@@ -5,20 +5,22 @@ import {
     UserRepository,
     RoleRepository,
     SessionRepository,
+    PersonaRepository,
 } from './repositories';
-import { User, Role, Session } from './entities';
+import { User, Role, Session, Persona } from './entities';
 import { Config } from '../config';
 
 @Module({
     imports: [
         TypeOrmModule.forRoot({
             ...Config.database,
-            entities: [Role, User, Session],
+            entities: [Role, User, Session, Persona],
         }),
         TypeOrmModule.forFeature([
             RoleRepository,
             UserRepository,
             SessionRepository,
+            PersonaRepository,
         ]),
     ],
     exports: [TypeOrmModule],

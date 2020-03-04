@@ -64,6 +64,15 @@ describe('RolesService', () => {
                     view: true,
                     edit: true,
                 },
+                sessions: {
+                    view: true,
+                    edit: true,
+                    admin: true,
+                },
+                personas: {
+                    view: true,
+                    edit: true,
+                },
             };
             const session = createTestUserSession();
 
@@ -122,6 +131,9 @@ describe('RolesService', () => {
                 users: {
                     view: true,
                 },
+                sessions: {
+                    admin: true,
+                },
             };
             const role = createTestRole();
             const session = createTestUserSession();
@@ -141,6 +153,15 @@ describe('RolesService', () => {
                             users: {
                                 view: true,
                                 edit: role.permissions.users.edit,
+                            },
+                            sessions: {
+                                view: role.permissions.sessions.view,
+                                edit: role.permissions.sessions.edit,
+                                admin: true,
+                            },
+                            personas: {
+                                view: role.permissions.personas.view,
+                                edit: role.permissions.personas.edit,
                             },
                         },
                         updatedBy: session.email,

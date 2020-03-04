@@ -46,5 +46,14 @@ export function createDefaultPermissions(
             view: false,
             edit: false,
         },
+        sessions: {
+            view: true,
+            edit: true,
+            admin: false,
+        },
+        personas: {
+            view: true,
+            edit: false,
+        },
     });
 }

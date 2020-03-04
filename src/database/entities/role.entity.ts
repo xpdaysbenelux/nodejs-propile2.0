@@ -5,6 +5,8 @@ import { BaseEntity } from './base.entity';
 export class Permissions {
     roles: RolePermissions;
     users: UserPermissions;
+    sessions: SessionPermissions;
+    personas: PersonaPermissions;
 }
 
 class RolePermissions {
@@ -13,6 +15,17 @@ class RolePermissions {
 }
 
 class UserPermissions {
+    view: boolean;
+    edit: boolean;
+}
+
+class SessionPermissions {
+    view: boolean;
+    edit: boolean;
+    admin: boolean;
+}
+
+class PersonaPermissions {
     view: boolean;
     edit: boolean;
 }

@@ -1,0 +1,102 @@
+[
+    {
+        "id": "a91e55d1-73ae-4e8c-baba-9b7e5a2061f5",
+        "createdAt": "2020-01-01T08:21:59.730Z",
+        "updatedAt": "2020-01-01T08:21:59.730Z",
+        "createdBy": "development@icapps.com",
+        "updatedBy": "development@icapps.com",
+        "name": "Jan",
+        "description": "Jan has been working as a programmer for 5 years now. Jan loves to program. He knows a lot of languages, and a lot of tools. At work, he he is not always happy because the circumstances often force him to deliver the quality he knows he can reach. Jan explores new technologies and trends on the internet and in books and magazines. At night Jan contributes to an open source project together with 10 other guys, from all over the world. That's where he heard about agile methodologies. In the open source group, he is used to work with unit tests, but he hopes to get some real in-depth tips and tricks from experts at the XP Days conference. He is also interested to learn about the latest trends for continuous intergration tools and test automation.",
+        "imageUrl": "http://propile.xpday.net/personas/jan.jpg"
+    },
+    {
+        "id": "8a5345c7-8320-434c-a88f-ae348c077e6e",
+        "createdAt": "2020-01-01T08:21:59.730Z",
+        "updatedAt": "2020-01-01T08:21:59.730Z",
+        "createdBy": "development@icapps.com",
+        "updatedBy": "development@icapps.com",
+        "name": "Marieke",
+        "description": "Marieke is part of a team that delivers product software on a regular basis. Several months ago, her team had an introductory training on extreme programming and scrum. Some of the ideas she learned about seemed interesting enough, but she is not sure if this methodology is applicable in their particular situation. After the course, some of her colleagues started to write unit tests, but there still are only a few, and they are not run very often, as far as Marieke can see. They also started to do a daily standup meeting, because according to the trainers that is a tool to enhance communication within the team. But these meetings are rather boring, and they tend to take 1/2 hour, every day. Team members are grumbling about wasting their time.\r\n\r\nMarieke started to think all this agile stuff is only an unusable hype. But then she heard about XP Days, and she thought \"well, let's give it another chance, if 150 people go to this conference, for 11 years in a row now, maybe there is more to it\". She hopes she can hear from real people in real teams how they have applied these techniques, which problems occurred in their situation, and what kind of consequences that had for them.",
+        "imageUrl": "http://propile.xpday.net/personas/marieke.jpg"
+    },
+    {
+        "id": "7670093e-3da2-45ac-a423-6a2e95f5954c",
+        "createdAt": "2020-01-01T08:21:59.730Z",
+        "updatedAt": "2020-01-01T08:21:59.730Z",
+        "createdBy": "development@icapps.com",
+        "updatedBy": "development@icapps.com",
+        "name": "Leo",
+        "description": "Leo has been around forever. He has seen everything, done everything. Over the years, Leo has been working as a developer, as a project lead, as a tester, as an analyst, as a manager, and as a consultant. He knows from experience that everything comes back, if you only wait a few years. He has learned that the same problems and the same solutions have been invented and re-invented a hundred times in computer science. He has lived through the rise and fall of uncountable new technologies and methodogies. All of them brand new, all of them the one and only forever best way to make software. Leo wants to go to XP Days because he thinks it's an excellent opportunity to meet with a lot of young, smart and enthusiastic people.",
+        "imageUrl": "http://propile.xpday.net/personas/leo.jpg"
+    },
+    {
+        "id": "e11c5355-41e7-4722-8407-3730fd4fb91f",
+        "createdAt": "2020-01-01T08:21:59.730Z",
+        "updatedAt": "2020-01-01T08:21:59.730Z",
+        "createdBy": "development@icapps.com",
+        "updatedBy": "development@icapps.com",
+        "name": "Bram",
+        "description": "Bram has never missed an XP Days. He has been to several other conferences in Europe, and also attended quite a few bigger agile and other conferences. Bram likes the XP Days, because of the friendly and informal atmosphere. Every year he goes back to work from XP Days full of energy, with a bag full of new ideas and techniques.",
+        "imageUrl": "http://propile.xpday.net/personas/bram.jpg"
+    },
+    {
+        "id": "1b1ceab1-e237-46b5-b0f6-7d3d76daa63a",
+        "createdAt": "2020-01-01T08:21:59.730Z",
+        "updatedAt": "2020-01-01T08:21:59.730Z",
+        "createdBy": "development@icapps.com",
+        "updatedBy": "development@icapps.com",
+        "name": "Philippe",
+        "description": "Philippe comes to XP Days because his boss told him to go. He has never heard about this agile stuff. He doesn't know what it is, or what it can be used for. He guesses it is something his boss wants to buy. He doesn't really care, because going to this conference means that he will be away from the hectic chaos in the office for 2 days.\r\n\r\nmmm I think maybe it is not very useful for Philippe to come to the XP Days? -Vera\r\n\r\nWhy not? Let Philippe come, let him relax and have a beer and dinner with agile people. He might even attend some presentations. And, once he's relaxed, who knows what could happen? --Pascal",
+        "imageUrl": "http://propile.xpday.net/personas/philippe.jpg"
+    },
+    {
+        "id": "b148cf23-2c41-466a-a8de-ec675dcc0358",
+        "createdAt": "2020-01-01T08:21:59.730Z",
+        "updatedAt": "2020-01-01T08:21:59.730Z",
+        "createdBy": "development@icapps.com",
+        "updatedBy": "development@icapps.com",
+        "name": "Georges",
+        "description": "Georges is a project manager. His life is filled with stress, deadlines, difficult programmers, unhappy customers and demanding bosses. Sometimes he wonders if he's chosen the right career.\r\n\r\nLately, Georges has been hearing more and more about agile methods. Some of his ex-colleagues have converted from project management to agile coaching. They tell him tales of vibrant, exciting, fun projects where customers and developers live in perfect harmony. That can't be true. They must be exaggerating. Or are they....?",
+        "imageUrl": "http://propile.xpday.net/personas/georges.jpg"
+    },
+    {
+        "id": "64ce5d93-e7b3-426c-9d35-009e5abacb48",
+        "createdAt": "2020-01-01T08:21:59.730Z",
+        "updatedAt": "2020-01-01T08:21:59.730Z",
+        "createdBy": "development@icapps.com",
+        "updatedBy": "development@icapps.com",
+        "name": "Vincent",
+        "description": "Vincent is the IT manager of a large company. His teams don't do too badly. Some projects are allright; some don't fully satisfy their users. The CEO has asked him to propose a plan to increase the efficiency of his department by 10% in the next two years. So, Vincent looks around for solutions that might help him to create and implement the plan. He has looked at a lot of things: processes, tools, consultants... He's heard that some other companies (even some reputable companies) have had success with \"agile\" methods, so he comes to the XP Days to get a taste of what \"agile\" can offer him. He doesn't know what to expect. Hippy surfer dudes? 18 year old wizz kids with piercings? Greybearded hackers? Oh well... What does he have to lose?\r\nMarieke started to think all this agile stuff is only an unusable hype. But then she heard about XP Days, and she thought \"well, let's give it another chance, if 150 people go to this conference, for 11 years in a row now, maybe there is more to it\". She hopes she can hear from real people in real teams how they have applied these techniques, which problems occurred in their situation, and what kind of consequences that had for them.",
+        "imageUrl": "http://propile.xpday.net/personas/vincent.jpg"
+    },
+    {
+        "id": "1dbc38c5-c2b5-4b19-aa7d-0de286175445",
+        "createdAt": "2020-01-01T08:21:59.730Z",
+        "updatedAt": "2020-01-01T08:21:59.730Z",
+        "createdBy": "development@icapps.com",
+        "updatedBy": "development@icapps.com",
+        "name": "Joke",
+        "description": "Joke is a product manager for a succesful product company. Joke understands her customers needs, she has lots of ideas for new features that would enhance the product. She knows that this product really enhances its user's lives. That's one of the reasons her company is so succesful. But they have trouble keeping up with customer demand. Joke finds it hard to talk to the development team, to make them understand what she needs in the product. If only she and the development team could work together more efficiently, they could make this product make more of a difference. Maybe this \"agile\" stuff can help? How does product management work in agile projects? Joke hopes to meet some developers and other product managers who can help her and give her some tips.Marieke started to think all this agile stuff is only an unusable hype. But then she heard about XP Days, and she thought \"well, let's give it another chance, if 150 people go to this conference, for 11 years in a row now, maybe there is more to it\". She hopes she can hear from real people in real teams how they have applied these techniques, which problems occurred in their situation, and what kind of consequences that had for them.",
+        "imageUrl": "http://propile.xpday.net/personas/joke.jpg"
+    },
+    {
+        "id": "504b2d8d-1b6b-492f-9e7a-c40028ab70b9",
+        "createdAt": "2020-01-01T08:21:59.730Z",
+        "updatedAt": "2020-01-01T08:21:59.730Z",
+        "createdBy": "development@icapps.com",
+        "updatedBy": "development@icapps.com",
+        "name": "Hank",
+        "description": "Hank is a motivated and experienced software engineer cum system architect who spends his days knee deep in the quagmires of enterprise automation. Appalled and bemused by the shocking waste of time, money, and people, he does his best to bring the joy back in the life of those around him by introducing agile methodologies wherever he sees the opportunity. Hank comes to the XP Days to share with and learn from like-minded colleagues.",
+        "imageUrl": "http://propile.xpday.net/personas/hank.jpg"
+    },
+    {
+        "id": "00278469-c59f-4101-85b8-9bc6f39a695e",
+        "createdAt": "2020-01-01T08:21:59.730Z",
+        "updatedAt": "2020-01-01T08:21:59.730Z",
+        "createdBy": "development@icapps.com",
+        "updatedBy": "development@icapps.com",
+        "name": "Ellen",
+        "description": "Ellen is an agile coach. She's been using agile methods for a few years now. XP, SCRUM, Lean... it doesn't matter much to her. She's more interested in doing things that matter to deliver value for her customers. She wants to work with a happy team, doing meaningful work.\r\n\r\nEllen wants to learn new ideas and share experience of techniques that work. She comes to XP Days because of its friendly and collaborative atmosphere.",
+        "imageUrl": "http://propile.xpday.net/personas/ellen.jpg"
+    }
+]

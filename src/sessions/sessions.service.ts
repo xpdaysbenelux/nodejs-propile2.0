@@ -7,16 +7,24 @@ import {
     User,
     SessionRepository,
     Session,
+    PersonaRepository,
 } from '../database';
 import { CreateSessionRequest } from './dto/create-session.dto';
 import { MailerService } from '../mailer/mailer.service';
-import { SessionTitleAlreadyInUse } from './errors';
+import {
+    SessionTitleAlreadyInUse,
+    SessionNotFound,
+    SessionEditNotAllowed,
+} from './errors';
 import {
     registerMessage,
     sessionCreatedForFirstPresenterMessage,
     sessionCreatedForSecondPresenterMessage,
 } from '../mailer/messages';
+import { UpdateSessionRequest } from './dto';
+import { IUserSession } from '../_shared/constants';
 import { UserState } from '../_shared/constants';
+import { In } from 'typeorm';
 
 @Injectable()
 export class SessionsService {
@@ -26,6 +34,7 @@ export class SessionsService {
         private readonly userRepository: UserRepository,
         private readonly roleRepository: RoleRepository,
         private readonly sessionRepository: SessionRepository,
+        private readonly personaRepository: PersonaRepository,
     ) {}
 
     async createSession(
@@ -67,6 +76,66 @@ export class SessionsService {
         await this.sessionRepository.save(session);
 
         this.sendSessionCreatedMails(body, presenters, origin);
+    }
+
+    async updateSession(
+        body: UpdateSessionRequest,
+        sessionId: string,
+        user: IUserSession,
+    ): Promise<string> {
+        const {
+            emailFirstPresenter,
+            emailSecondPresenter,
+            sessionState,
+            personaIds,
+        } = body;
+
+        const existingSession = await this.sessionRepository.findOne({
+            where: { id: sessionId },
+            relations: [
+                'firstPresenter',
+                'secondPresenter',
+                'intendedAudience',
+            ],
+        });
+
+        if (!existingSession) {
+            throw new SessionNotFound();
+        }
+
+        // if (
+        //     emailFirstPresenter !== user.email ||
+        //     emailSecondPresenter !== user.email ||
+        //     !this.checkAdminRightsOnSession(user)
+        // ) {
+        //     throw new SessionEditNotAllowed();
+        // }
+
+        if (this.checkAdminRightsOnSession(user)) {
+            existingSession.sessionState = sessionState || null;
+
+            existingSession.firstPresenter = await this.userRepository.findOne({
+                email: emailFirstPresenter,
+            });
+
+            existingSession.secondPresenter =
+                (await this.userRepository.findOne({
+                    email: emailSecondPresenter,
+                })) || null;
+        }
+
+        const personas = personaIds
+            ? await this.personaRepository.find({ id: In(personaIds) })
+            : [];
+        if (personas.length) existingSession.intendedAudience = personas;
+
+        existingSession.updatedBy = user.email;
+
+        await this.sessionRepository.save(
+            this.getRemainingUpdateValues(existingSession, body),
+        );
+
+        return existingSession.id;
     }
 
     /**
@@ -137,5 +206,36 @@ export class SessionsService {
                     }),
                 ),
             );
+    }
+
+    // We want to check if the user has admin rights to edit certain of a session
+    private checkAdminRightsOnSession(user: IUserSession): boolean {
+        return user.permissions.sessions.admin;
+    }
+
+    private getRemainingUpdateValues(
+        existingSession: Session,
+        request: UpdateSessionRequest,
+    ): Session {
+        const session: Session = existingSession;
+
+        session.subTitle = request.subTitle || null;
+        session.xpFactor = request.xpFactor || 0;
+        session.shortDescription = request.shortDescription || null;
+        session.goal = request.goal || null;
+        session.type = request.type || null;
+        session.topic = request.topic || null;
+        session.maxParticipants = request.maxParticipants || 50;
+        session.duration = request.duration || null;
+        session.laptopsRequired = request.laptopsRequired;
+        session.otherLimitations = request.otherLimitations || null;
+        session.roomSetup = request.roomSetup || null;
+        session.neededMaterials = request.neededMaterials || null;
+        session.expierenceLevel = request.expierenceLevel || null;
+        session.outline = request.outLine || null;
+        session.materialDescription = request.materialDescription || null;
+        session.materialUrl = request.materialUlr || null;
+
+        return session;
     }
 }

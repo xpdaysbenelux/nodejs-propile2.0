@@ -12,6 +12,15 @@
             "users": {
                 "view": true,
                 "edit": true
+            },
+            "sessions": {
+                "view": true,
+                "edit": true,
+                "admin": true
+            },
+            "personas": {
+                "view": true,
+                "edit": true
             }
         }
     },
@@ -30,6 +39,15 @@
             "users": {
                 "view": true,
                 "edit": true
+            },
+            "sessions": {
+                "view": true,
+                "edit": false,
+                "admin": false
+            },
+            "personas": {
+                "view": true,
+                "edit": false
             }
         }
     },
@@ -46,6 +64,15 @@
                 "edit": false
             },
             "users": {
+                "view": true,
+                "edit": false
+            },
+            "sessions": {
+                "view": true,
+                "edit": false,
+                "admin": false
+            },
+            "personas": {
                 "view": true,
                 "edit": false
             }
