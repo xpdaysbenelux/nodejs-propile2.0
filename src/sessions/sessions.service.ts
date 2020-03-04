@@ -102,13 +102,13 @@ export class SessionsService {
             throw new SessionNotFound();
         }
 
-        // if (
-        //     emailFirstPresenter !== user.email ||
-        //     emailSecondPresenter !== user.email ||
-        //     !this.checkAdminRightsOnSession(user)
-        // ) {
-        //     throw new SessionEditNotAllowed();
-        // }
+        if (
+            emailFirstPresenter !== user.email &&
+            emailSecondPresenter !== user.email &&
+            !this.checkAdminRightsOnSession(user)
+        ) {
+            throw new SessionEditNotAllowed();
+        }
 
         if (this.checkAdminRightsOnSession(user)) {
             existingSession.sessionState = sessionState || null;

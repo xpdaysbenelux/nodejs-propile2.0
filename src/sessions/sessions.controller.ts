@@ -2,7 +2,6 @@ import {
     Controller,
     Post,
     Body,
-    Patch,
     Param,
     UseGuards,
     Get,
@@ -40,8 +39,8 @@ export class SessionsController {
      * Gets the sessions from a specific user.
      * @param userId
      */
-    // @RequiredPermissions({ sessions: { view: true } })
-    // @UseGuards(RequiredPermissionsGuard)
+    @RequiredPermissions({ sessions: { view: true } })
+    @UseGuards(RequiredPermissionsGuard)
     @Get(':userId')
     getSessionsOfUser(
         @Param() params: UserIdParam,
@@ -49,8 +48,8 @@ export class SessionsController {
         return this.sessionQueries.getSessionsByUser(params.userId);
     }
 
-    // @RequiredPermissions({ sessions: { view: true, edit: true } })
-    // @UseGuards(RequiredPermissionsGuard)
+    @RequiredPermissions({ sessions: { view: true, edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
     @Get(':sessionId')
     getSessionById(
         @Param() params: SessionIdParam,
@@ -67,7 +66,6 @@ export class SessionsController {
         await this.sessionService.createSession(body, origin);
     }
 
-    // Todo: if needed change return type to session
     @RequiredPermissions({ sessions: { edit: true } })
     @UseGuards(RequiredPermissionsGuard)
     @Put(':sessionId')
