@@ -4,8 +4,6 @@ import { MandrillMessage } from './index';
 export function sessionCreatedForFirstPresenterMessage(
     data: SessionCreatedMessage,
 ): MandrillMessage {
-    console.log('session created, mail firstPresenter:', data.email);
-
     // Todo Slugify url
     const url = `${data.frontendUrl}/auth/login`;
     return {
@@ -20,8 +18,6 @@ export function sessionCreatedForFirstPresenterMessage(
 export function sessionCreatedForSecondPresenterMessage(
     data: SessionCreatedMessage,
 ): MandrillMessage {
-    console.log('session created, mail secondPresenter:', data.email);
-
     // Todo Slugify url
     const url = `${data.frontendUrl}/auth/login`;
     return {

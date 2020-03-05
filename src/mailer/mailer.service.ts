@@ -13,7 +13,6 @@ export class MailerService {
             Config.mandrillApiKey,
             Config.environment !== 'production',
         );
-        console.log('mandrill client', this.mandrillClient);
     }
 
     sendMail(message: MandrillMessage): Promise<unknown> {
