@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SessionsQueries getSession should return nothing if the requested session does not exist 1`] = `undefined`;
+
+exports[`SessionsQueries getSession should return the requested session correctly 1`] = `
+Session {
+  "createdAt": 2020-01-01T08:21:59.730Z,
+  "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.",
+  "duration": "30",
+  "expierenceLevel": "NOVICE",
+  "firstPresenter": User {
+    "email": "user2@propile.com",
+  },
+  "goal": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+  "id": "8c87028d-31f6-414b-b02d-e7431b6a7243",
+  "laptopsRequired": false,
+  "materialDescription": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+  "materialUrl": "www.test_material_url.com",
+  "maxParticipants": 25,
+  "neededMaterials": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
+  "otherLimitations": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
+  "outline": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.",
+  "roomSetup": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+  "secondPresenter": User {
+    "email": "user1@propile.com",
+  },
+  "shortDescription": "Short desc, leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.",
+  "subTitle": "My experience about...",
+  "title": "How to...",
+  "topic": "TEAM_AND_INDIVIDUAL",
+  "type": "OTHER",
+  "xpFactor": 2,
+}
+`;
+
+exports[`SessionsQueries getSessionsByUser should return a list of sessions from the requested user 1`] = `
+Object {
+  "data": Array [
+    Session {
+      "createdAt": 2020-01-01T08:21:59.730Z,
+      "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.",
+      "duration": "30",
+      "expierenceLevel": "NOVICE",
+      "firstPresenter": User {
+        "email": "user2@propile.com",
+      },
+      "goal": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+      "id": "8c87028d-31f6-414b-b02d-e7431b6a7243",
+      "laptopsRequired": false,
+      "materialDescription": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+      "materialUrl": "www.test_material_url.com",
+      "maxParticipants": 25,
+      "neededMaterials": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.",
+      "otherLimitations": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
+      "outline": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.",
+      "roomSetup": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+      "secondPresenter": User {
+        "email": "user1@propile.com",
+      },
+      "shortDescription": "Short desc, leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.",
+      "subTitle": "My experience about...",
+      "title": "How to...",
+      "topic": "TEAM_AND_INDIVIDUAL",
+      "type": "OTHER",
+      "xpFactor": 2,
+    },
+    Session {
+      "createdAt": 2020-01-01T08:21:59.730Z,
+      "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+      "duration": null,
+      "expierenceLevel": "NOVICE",
+      "firstPresenter": User {
+        "email": "user2@propile.com",
+      },
+      "goal": null,
+      "id": "05909211-9301-4e65-8b1e-65c00b672ee8",
+      "laptopsRequired": false,
+      "materialDescription": "",
+      "materialUrl": "",
+      "maxParticipants": 50,
+      "neededMaterials": "",
+      "otherLimitations": "",
+      "outline": "",
+      "roomSetup": "",
+      "secondPresenter": null,
+      "shortDescription": null,
+      "subTitle": "How I...",
+      "title": "Avoid the Top 10 mistakes made by...",
+      "topic": "CASES_AND_INTROS",
+      "type": "HANDS_ON",
+      "xpFactor": 5,
+    },
+  ],
+  "meta": Object {
+    "count": 2,
+    "skip": null,
+    "totalCount": 2,
+  },
+}
+`;
+
+exports[`SessionsQueries getSessionsByUser should return an empty list if no sessions for the requested user are found 1`] = `
+Object {
+  "data": Array [],
+  "meta": Object {
+    "count": 0,
+    "skip": null,
+    "totalCount": 0,
+  },
+}
+`;
+
+exports[`SessionsQueries getSessionsByUser should return an empty list if the requested user does not exist 1`] = `
+Object {
+  "data": Array [],
+  "meta": Object {
+    "count": 0,
+    "skip": null,
+    "totalCount": 0,
+  },
+}
+`;

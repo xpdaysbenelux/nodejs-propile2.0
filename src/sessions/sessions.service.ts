@@ -219,6 +219,7 @@ export class SessionsService {
         const session: Session = existingSession;
 
         session.subTitle = request.subTitle || null;
+        session.description = request.description;
         session.xpFactor = request.xpFactor || 0;
         session.shortDescription = request.shortDescription || null;
         session.goal = request.goal || null;
@@ -231,9 +232,9 @@ export class SessionsService {
         session.roomSetup = request.roomSetup || null;
         session.neededMaterials = request.neededMaterials || null;
         session.expierenceLevel = request.expierenceLevel || null;
-        session.outline = request.outLine || null;
+        session.outline = request.outline || null;
         session.materialDescription = request.materialDescription || null;
-        session.materialUrl = request.materialUlr || null;
+        session.materialUrl = request.materialUrl || null;
 
         return session;
     }

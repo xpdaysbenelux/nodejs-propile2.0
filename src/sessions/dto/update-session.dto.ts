@@ -103,7 +103,7 @@ export class UpdateSessionRequest {
 
     @IsOptional()
     @IsString()
-    readonly outLine?: string;
+    readonly outline?: string;
 
     @IsOptional()
     @IsString()
@@ -111,7 +111,7 @@ export class UpdateSessionRequest {
 
     @IsOptional()
     @IsString()
-    readonly materialUlr?: string;
+    readonly materialUrl?: string;
 }
 
 export class SessionIdParam {

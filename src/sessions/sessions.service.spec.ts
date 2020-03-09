@@ -8,9 +8,11 @@ import {
     when,
     objectContaining,
     verify,
+    capture,
 } from 'ts-mockito';
 import { JwtService } from '@nestjs/jwt';
 import * as faker from 'faker';
+import { omit } from 'ramda';
 
 import { SessionsService } from './sessions.service';
 import {
@@ -22,15 +24,29 @@ import {
 import {
     createTestUser,
     createTestRole,
-    createTestSession,
+    createShortTestSession,
+    createTestUserSession,
+    createFullTestSession,
 } from '../_util/testing';
+import {
+    SessionState,
+    SessionType,
+    SessionTopic,
+    SessionDuration,
+    SessionExpierenceLevel,
+} from './constants';
 import { MailerService } from '../mailer/mailer.service';
-import { SessionTitleAlreadyInUse } from './errors';
+import {
+    SessionTitleAlreadyInUse,
+    SessionEditNotAllowed,
+    SessionNotFound,
+} from './errors';
 import {
     registerMessage,
     sessionCreatedForFirstPresenterMessage,
     sessionCreatedForSecondPresenterMessage,
 } from '../mailer/messages';
+import { async } from 'rxjs/internal/scheduler/async';
 
 describe('SessionsService', () => {
     let sessionsService: SessionsService;
@@ -42,13 +58,40 @@ describe('SessionsService', () => {
     const personaRepository = mock(PersonaRepository);
     const mailerService = mock(MailerService);
 
-    const body = {
+    const createBody = {
         title: faker.lorem.sentence(),
         subTitle: faker.lorem.sentence(),
         emailFirstPresenter: faker.internet.email(),
         emailSecondPresenter: faker.internet.email(),
         xpFactor: Math.round(faker.random.number(10)),
         description: faker.lorem.sentences(15),
+    };
+
+    const updateBody = {
+        title: faker.lorem.sentence(),
+        subTitle: faker.lorem.sentence(),
+        emailFirstPresenter: faker.internet.email(),
+        emailSecondPresenter: faker.internet.email(),
+        xpFactor: Math.round(faker.random.number(10)),
+        description: faker.lorem.sentences(10),
+        sessionState: faker.random.arrayElement(Object.values(SessionState)),
+        shortDescription: faker.lorem.sentences(3),
+        goal: faker.lorem.sentences(3),
+        type: faker.random.arrayElement(Object.values(SessionType)),
+        topic: faker.random.arrayElement(Object.values(SessionTopic)),
+        maxParticipants: Math.round(faker.random.number(50)),
+        duration: faker.random.arrayElement(Object.values(SessionDuration)),
+        laptopsRequired: faker.random.boolean(),
+        otherLimitations: faker.lorem.sentences(2),
+        intendedAudience: [],
+        roomSetup: faker.lorem.sentences(2),
+        neededMaterials: faker.lorem.sentences(2),
+        expierenceLevel: faker.random.arrayElement(
+            Object.values(SessionExpierenceLevel),
+        ),
+        outline: faker.lorem.sentences(2),
+        materialDescription: faker.lorem.sentences(3),
+        materialUrl: faker.lorem.sentences(2),
     };
 
     beforeAll(async () => {
@@ -87,6 +130,9 @@ describe('SessionsService', () => {
 
     afterEach(() => {
         reset(sessionRepository);
+        reset(roleRepository);
+        reset(userRepository);
+        reset(jwtService);
     });
 
     describe('createSession', () => {
@@ -98,16 +144,18 @@ describe('SessionsService', () => {
             when(sessionRepository.findOne(anything())).thenResolve(null);
             const firstPresenter = createTestUser({
                 id: 'blabla',
-                email: body.emailFirstPresenter,
+                email: createBody.emailFirstPresenter,
             });
             when(
                 userRepository.findOne(
-                    objectContaining({ email: body.emailFirstPresenter }),
+                    objectContaining({ email: createBody.emailFirstPresenter }),
                 ),
             ).thenResolve(firstPresenter);
             when(
                 userRepository.findOne(
-                    objectContaining({ email: body.emailSecondPresenter }),
+                    objectContaining({
+                        email: createBody.emailSecondPresenter,
+                    }),
                 ),
             ).thenResolve(null);
             when(roleRepository.findOne(anything())).thenResolve(
@@ -119,17 +167,19 @@ describe('SessionsService', () => {
             );
 
             const origin = 'http://test.com';
-            await sessionsService.createSession(body, origin);
+            await sessionsService.createSession(createBody, origin);
 
             verify(
                 sessionRepository.save(
                     objectContaining({
                         firstPresenter,
-                        title: body.title,
-                        subTitle: body.subTitle,
-                        secondPresenter: { email: body.emailSecondPresenter },
-                        xpFactor: body.xpFactor,
-                        description: body.description,
+                        title: createBody.title,
+                        subTitle: createBody.subTitle,
+                        secondPresenter: {
+                            email: createBody.emailSecondPresenter,
+                        },
+                        xpFactor: createBody.xpFactor,
+                        description: createBody.description,
                     }),
                 ),
             ).once();
@@ -137,7 +187,7 @@ describe('SessionsService', () => {
                 mailerService.sendMail(
                     objectContaining(
                         registerMessage({
-                            email: body.emailSecondPresenter,
+                            email: createBody.emailSecondPresenter,
                             resetToken,
                             frontendUrl: origin,
                         }),
@@ -148,9 +198,9 @@ describe('SessionsService', () => {
                 mailerService.sendMail(
                     objectContaining(
                         sessionCreatedForFirstPresenterMessage({
-                            email: body.emailFirstPresenter,
+                            email: createBody.emailFirstPresenter,
                             frontendUrl: origin,
-                            sessionTitle: body.title,
+                            sessionTitle: createBody.title,
                         }),
                     ),
                 ),
@@ -159,10 +209,10 @@ describe('SessionsService', () => {
                 mailerService.sendMail(
                     objectContaining(
                         sessionCreatedForSecondPresenterMessage({
-                            email: body.emailSecondPresenter,
-                            emailMainPresenter: body.emailFirstPresenter,
+                            email: createBody.emailSecondPresenter,
+                            emailMainPresenter: createBody.emailFirstPresenter,
                             frontendUrl: origin,
-                            sessionTitle: body.title,
+                            sessionTitle: createBody.title,
                         }),
                     ),
                 ),
@@ -172,13 +222,150 @@ describe('SessionsService', () => {
         it('should throw an error when a session with given title that already exists', async () => {
             when(
                 sessionRepository.findOne(
-                    objectContaining({ title: body.title }),
+                    objectContaining({ title: createBody.title }),
                 ),
-            ).thenResolve(createTestSession({ title: body.title }));
+            ).thenResolve(createShortTestSession({ title: createBody.title }));
 
             await expect(
-                sessionsService.createSession(body, 'origin'),
+                sessionsService.createSession(createBody, 'origin'),
             ).rejects.toThrowError(SessionTitleAlreadyInUse);
+        });
+    });
+
+    describe('updateSession', () => {
+        it('should update the session correctly as first presenter', async () => {
+            const session = createFullTestSession();
+            const currentUser = createTestUserSession(session.firstPresenter);
+
+            when(sessionRepository.findOne(anything())).thenResolve(session);
+
+            updateBody.title = session.title;
+            updateBody.emailFirstPresenter = session.firstPresenter.email;
+
+            await sessionsService.updateSession(
+                updateBody,
+                session.id,
+                currentUser,
+            );
+
+            const expectedSave = {
+                ...omit(
+                    [
+                        'emailFirstPresenter',
+                        'emailSecondPresenter',
+                        'sessionState',
+                    ],
+                    updateBody,
+                ),
+            };
+
+            verify(
+                sessionRepository.save(objectContaining(expectedSave)),
+            ).once();
+        });
+
+        it('should update the session correctly as admin user', async () => {
+            const session = createFullTestSession();
+            const adminUser = createTestUserSession({
+                permissions: {
+                    sessions: { edit: true, view: true, admin: true },
+                },
+            });
+            const firstPresenter = createTestUser({
+                email: session.firstPresenter.email,
+            });
+            const secondPresenter = createTestUser({
+                email: updateBody.emailSecondPresenter,
+            });
+
+            updateBody.title = session.title;
+
+            when(sessionRepository.findOne(anything())).thenResolve(session);
+            when(
+                userRepository.findOne(
+                    objectContaining({ email: updateBody.emailFirstPresenter }),
+                ),
+            ).thenResolve(firstPresenter);
+            when(
+                userRepository.findOne(
+                    objectContaining({
+                        email: updateBody.emailSecondPresenter,
+                    }),
+                ),
+            ).thenResolve(secondPresenter);
+
+            await sessionsService.updateSession(
+                updateBody,
+                session.id,
+                adminUser,
+            );
+
+            const expectedSave = {
+                ...omit(
+                    ['emailFirstPresenter', 'emailSecondPresenter'],
+                    updateBody,
+                ),
+                firstPresenter,
+                secondPresenter,
+            };
+
+            verify(
+                sessionRepository.save(objectContaining(expectedSave)),
+            ).once();
+        });
+
+        it('should throw an error because user has no rights to edit the session', async () => {
+            const session = createFullTestSession();
+            const currentUser = createTestUserSession({
+                permissions: { sessions: { admin: false } },
+            });
+
+            when(sessionRepository.findOne(anything())).thenResolve(session);
+
+            await expect(
+                sessionsService.updateSession(
+                    updateBody,
+                    session.id,
+                    currentUser,
+                ),
+            ).rejects.toThrowError(SessionEditNotAllowed);
+        });
+
+        it('should throw an error because the user is no presenter and has no admin rights to edit the session', async () => {
+            const session = createFullTestSession();
+            const currentUser = createTestUserSession({
+                permissions: { sessions: { admin: false } },
+            });
+
+            when(sessionRepository.findOne(anything())).thenResolve(session);
+            if (
+                session.firstPresenter.email === currentUser.email ||
+                session.secondPresenter.email === currentUser.email
+            ) {
+                currentUser.email = faker.internet.email();
+            }
+
+            await expect(
+                sessionsService.updateSession(
+                    updateBody,
+                    session.id,
+                    currentUser,
+                ),
+            ).rejects.toThrowError(SessionEditNotAllowed);
+        });
+        it('should throw an error because the session does not exist', async () => {
+            const session = createFullTestSession();
+            const currentUser = createTestUserSession({
+                permissions: { sessions: { admin: false } },
+            });
+
+            await expect(
+                sessionsService.updateSession(
+                    updateBody,
+                    session.id,
+                    currentUser,
+                ),
+            ).rejects.toThrowError(SessionNotFound);
         });
     });
 });
