@@ -1,7 +1,7 @@
 #!bin/bash
 
 # Seed if dev
-if [[ "$NODE_ENV" == 'development' ]];
+if [[ "$NODE_ENV" != 'production' ]];
 then
     # Drops db, migrates & seeds.
     yarn db:rollup && yarn seed:all
