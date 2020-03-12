@@ -19,6 +19,15 @@ export class SessionTitleAlreadyInUse extends BadRequestException {
     }
 }
 
+export class SessionPresenterEmailsMustDiffer extends BadRequestException {
+    constructor() {
+        super(
+            'The email addresses of the presenters cannot be the same.',
+            'SESSION_PRESENTERS_EMAILS_MUST_DIFFER',
+        );
+    }
+}
+
 export class SessionEditNotAllowed extends ForbiddenException {
     constructor() {
         super(
