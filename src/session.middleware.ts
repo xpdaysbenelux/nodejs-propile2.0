@@ -16,12 +16,9 @@ export function addSessionMiddleware(app: INestApplication): void {
             resave: true,
             saveUninitialized: false,
             cookie: {
-                sameSite: 'none',
                 maxAge: Config.session.expiresIn,
+                secure: 'auto',
                 httpOnly: true,
-                secure:
-                    Config.environment === 'production' ||
-                    Config.environment === 'staging',
             },
             store: new RedisStore({ client }),
         }),
