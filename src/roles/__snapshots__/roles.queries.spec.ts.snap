@@ -81,7 +81,7 @@ Object {
         },
         "sessions": Object {
           "admin": false,
-          "edit": false,
+          "edit": true,
           "view": true,
         },
         "users": Object {
@@ -297,7 +297,7 @@ Object {
         },
         "sessions": Object {
           "admin": false,
-          "edit": false,
+          "edit": true,
           "view": true,
         },
         "users": Object {

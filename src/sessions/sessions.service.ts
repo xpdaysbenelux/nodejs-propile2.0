@@ -15,6 +15,7 @@ import {
     SessionTitleAlreadyInUse,
     SessionNotFound,
     SessionEditNotAllowed,
+    SessionPresenterEmailsMustDiffer,
 } from './errors';
 import {
     registerMessage,
@@ -64,6 +65,9 @@ export class SessionsService {
         session.xpFactor = xpFactor;
         session.description = description;
 
+        if (emailFirstPresenter === emailSecondPresenter) {
+            throw new SessionPresenterEmailsMustDiffer();
+        }
         const presenterEmails = emailSecondPresenter
             ? [emailFirstPresenter, emailSecondPresenter]
             : [emailFirstPresenter];
@@ -102,6 +106,9 @@ export class SessionsService {
             throw new SessionNotFound();
         }
 
+        if (emailFirstPresenter === emailSecondPresenter) {
+            throw new SessionPresenterEmailsMustDiffer();
+        }
         if (
             emailFirstPresenter !== user.email &&
             emailSecondPresenter !== user.email &&

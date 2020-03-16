@@ -69,7 +69,7 @@
             },
             "sessions": {
                 "view": true,
-                "edit": false,
+                "edit": true,
                 "admin": false
             },
             "personas": {
