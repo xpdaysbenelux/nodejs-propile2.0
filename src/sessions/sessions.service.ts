@@ -88,6 +88,7 @@ export class SessionsService {
         user: IUserSession,
     ): Promise<string> {
         const {
+            title,
             emailFirstPresenter,
             emailSecondPresenter,
             sessionState,
@@ -104,6 +105,15 @@ export class SessionsService {
         });
         if (!existingSession) {
             throw new SessionNotFound();
+        }
+
+        const sessionWithSameTitle = await this.sessionRepository.findOne({
+            where: { title },
+        });
+        if (sessionWithSameTitle) {
+            throw new SessionTitleAlreadyInUse();
+        } else {
+            existingSession.title = title;
         }
 
         if (emailFirstPresenter === emailSecondPresenter) {
