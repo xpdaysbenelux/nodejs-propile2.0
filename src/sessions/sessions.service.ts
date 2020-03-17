@@ -25,7 +25,7 @@ import {
 import { UpdateSessionRequest } from './dto';
 import { IUserSession } from '../_shared/constants';
 import { UserState } from '../_shared/constants';
-import { In } from 'typeorm';
+import { In, Not } from 'typeorm';
 
 @Injectable()
 export class SessionsService {
@@ -108,7 +108,10 @@ export class SessionsService {
         }
 
         const sessionWithSameTitle = await this.sessionRepository.findOne({
-            where: { title },
+            where: {
+                id: Not(existingSession.id),
+                title,
+            },
         });
         if (sessionWithSameTitle) {
             throw new SessionTitleAlreadyInUse();
