@@ -32,6 +32,7 @@ export function createFullTestSession(
 ): Session {
     const session = createShortTestSession(overrides);
 
+    session.id = faker.random.uuid();
     session.sessionState = faker.random.arrayElement(
         Object.values(SessionState),
     );

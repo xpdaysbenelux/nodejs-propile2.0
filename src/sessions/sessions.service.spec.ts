@@ -8,7 +8,6 @@ import {
     when,
     objectContaining,
     verify,
-    capture,
 } from 'ts-mockito';
 import { JwtService } from '@nestjs/jwt';
 import * as faker from 'faker';
@@ -46,7 +45,7 @@ import {
     sessionCreatedForFirstPresenterMessage,
     sessionCreatedForSecondPresenterMessage,
 } from '../mailer/messages';
-import { async } from 'rxjs/internal/scheduler/async';
+import { Not } from 'typeorm';
 
 describe('SessionsService', () => {
     let sessionsService: SessionsService;
@@ -237,7 +236,21 @@ describe('SessionsService', () => {
             const session = createFullTestSession();
             const currentUser = createTestUserSession(session.firstPresenter);
 
-            when(sessionRepository.findOne(anything())).thenResolve(session);
+            when(
+                sessionRepository.findOne(
+                    objectContaining({ where: { id: session.id } }),
+                ),
+            ).thenResolve(session);
+            when(
+                sessionRepository.findOne(
+                    objectContaining({
+                        where: {
+                            id: Not(session.id),
+                            title: updateBody.title,
+                        },
+                    }),
+                ),
+            ).thenResolve(undefined);
 
             updateBody.title = session.title;
             updateBody.emailFirstPresenter = session.firstPresenter.email;
@@ -280,7 +293,21 @@ describe('SessionsService', () => {
 
             updateBody.title = session.title;
 
-            when(sessionRepository.findOne(anything())).thenResolve(session);
+            when(
+                sessionRepository.findOne(
+                    objectContaining({ where: { id: session.id } }),
+                ),
+            ).thenResolve(session);
+            when(
+                sessionRepository.findOne(
+                    objectContaining({
+                        where: {
+                            id: Not(session.id),
+                            title: updateBody.title,
+                        },
+                    }),
+                ),
+            ).thenResolve(undefined);
             when(
                 userRepository.findOne(
                     objectContaining({ email: updateBody.emailFirstPresenter }),
@@ -320,7 +347,21 @@ describe('SessionsService', () => {
                 permissions: { sessions: { admin: false } },
             });
 
-            when(sessionRepository.findOne(anything())).thenResolve(session);
+            when(
+                sessionRepository.findOne(
+                    objectContaining({ where: { id: session.id } }),
+                ),
+            ).thenResolve(session);
+            when(
+                sessionRepository.findOne(
+                    objectContaining({
+                        where: {
+                            id: Not(session.id),
+                            title: updateBody.title,
+                        },
+                    }),
+                ),
+            ).thenResolve(undefined);
 
             await expect(
                 sessionsService.updateSession(
@@ -337,7 +378,21 @@ describe('SessionsService', () => {
                 permissions: { sessions: { admin: false } },
             });
 
-            when(sessionRepository.findOne(anything())).thenResolve(session);
+            when(
+                sessionRepository.findOne(
+                    objectContaining({ where: { id: session.id } }),
+                ),
+            ).thenResolve(session);
+            when(
+                sessionRepository.findOne(
+                    objectContaining({
+                        where: {
+                            id: Not(session.id),
+                            title: updateBody.title,
+                        },
+                    }),
+                ),
+            ).thenResolve(undefined);
             if (
                 session.firstPresenter.email === currentUser.email ||
                 session.secondPresenter.email === currentUser.email
