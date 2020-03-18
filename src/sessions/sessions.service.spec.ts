@@ -12,6 +12,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import * as faker from 'faker';
 import { omit } from 'ramda';
+import { Not } from 'typeorm';
 
 import { SessionsService } from './sessions.service';
 import {
@@ -45,7 +46,6 @@ import {
     sessionCreatedForFirstPresenterMessage,
     sessionCreatedForSecondPresenterMessage,
 } from '../mailer/messages';
-import { Not } from 'typeorm';
 
 describe('SessionsService', () => {
     let sessionsService: SessionsService;

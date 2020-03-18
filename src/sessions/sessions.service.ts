@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { In, Not } from 'typeorm';
 
 import {
     UserRepository,
@@ -25,7 +26,6 @@ import {
 import { UpdateSessionRequest } from './dto';
 import { IUserSession } from '../_shared/constants';
 import { UserState } from '../_shared/constants';
-import { In, Not } from 'typeorm';
 
 @Injectable()
 export class SessionsService {
