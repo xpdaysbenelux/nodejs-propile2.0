@@ -1,4 +1,5 @@
-import { Entity, BaseEntity, Column, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne } from 'typeorm';
+import { BaseEntity } from './base.entity';
 import { Conference } from './conference.entity';
 
 @Entity()

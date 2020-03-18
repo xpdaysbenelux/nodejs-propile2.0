@@ -1,8 +1,9 @@
-import { Entity, BaseEntity, Column } from 'typeorm';
+import { Entity, Column } from 'typeorm';
+import { BaseEntity } from './base.entity';
 
 @Entity()
 export class Conference extends BaseEntity {
-    @Column({ nullable: false })
+    @Column({ unique: false })
     name: string;
 
     @Column({ nullable: true })
