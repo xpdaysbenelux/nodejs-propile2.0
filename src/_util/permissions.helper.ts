@@ -51,6 +51,14 @@ export function createDefaultPermissions(
             edit: true,
             admin: false,
         },
+        conferences: {
+            view: false,
+            edit: false,
+        },
+        programs: {
+            view: false,
+            edit: false,
+        },
         personas: {
             view: true,
             edit: false,

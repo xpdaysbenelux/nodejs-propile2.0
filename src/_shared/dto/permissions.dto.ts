@@ -34,6 +34,26 @@ class SessionPermissionsDto {
     readonly admin?: boolean;
 }
 
+class ConferencePermissionsDTo {
+    @IsBoolean()
+    @IsOptional()
+    readonly view?: boolean;
+
+    @IsBoolean()
+    @IsOptional()
+    readonly edit?: boolean;
+}
+
+class ProgramPermissionsDTO {
+    @IsBoolean()
+    @IsOptional()
+    readonly view?: boolean;
+
+    @IsBoolean()
+    @IsOptional()
+    readonly edit?: boolean;
+}
+
 class PersonaPermissionsDto {
     @IsBoolean()
     @IsOptional()
@@ -53,6 +73,12 @@ export class PermissionsDto {
 
     @IsOptional()
     readonly sessions?: SessionPermissionsDto;
+
+    @IsOptional()
+    readonly conferences?: ConferencePermissionsDTo;
+
+    @IsOptional()
+    readonly programs?: ProgramPermissionsDTO;
 
     @IsOptional()
     readonly personas?: PersonaPermissionsDto;

@@ -18,6 +18,14 @@
                 "edit": true,
                 "admin": true
             },
+            "conferences": {
+                "view": true,
+                "edit": true
+            },
+            "programs": {
+                "view": true,
+                "edit": true
+            },
             "personas": {
                 "view": true,
                 "edit": true
@@ -45,6 +53,14 @@
                 "edit": false,
                 "admin": false
             },
+            "conferences": {
+                "view": true,
+                "edit": true
+            },
+            "programs": {
+                "view": true,
+                "edit": true
+            },
             "personas": {
                 "view": true,
                 "edit": false
@@ -71,6 +87,14 @@
                 "view": true,
                 "edit": true,
                 "admin": false
+            },
+            "conferences": {
+                "view": false,
+                "edit": false
+            },
+            "programs": {
+                "view": false,
+                "edit": false
             },
             "personas": {
                 "view": true,

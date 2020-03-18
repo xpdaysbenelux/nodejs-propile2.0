@@ -6,6 +6,8 @@ export class Permissions {
     roles: RolePermissions;
     users: UserPermissions;
     sessions: SessionPermissions;
+    conferences: ConferencePermissions;
+    programs: ProgramPermissions;
     personas: PersonaPermissions;
 }
 
@@ -23,6 +25,16 @@ class SessionPermissions {
     view: boolean;
     edit: boolean;
     admin: boolean;
+}
+
+class ConferencePermissions {
+    view: boolean;
+    edit: boolean;
+}
+
+class ProgramPermissions {
+    view: boolean;
+    edit: boolean;
 }
 
 class PersonaPermissions {

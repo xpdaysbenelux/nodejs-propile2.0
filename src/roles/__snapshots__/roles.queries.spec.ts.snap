@@ -10,7 +10,15 @@ Role {
   "isDefault": false,
   "name": "Admin",
   "permissions": Object {
+    "conferences": Object {
+      "edit": true,
+      "view": true,
+    },
     "personas": Object {
+      "edit": true,
+      "view": true,
+    },
+    "programs": Object {
       "edit": true,
       "view": true,
     },
@@ -43,8 +51,16 @@ Object {
       "isDefault": false,
       "name": "Support",
       "permissions": Object {
+        "conferences": Object {
+          "edit": true,
+          "view": true,
+        },
         "personas": Object {
           "edit": false,
+          "view": true,
+        },
+        "programs": Object {
+          "edit": true,
           "view": true,
         },
         "roles": Object {
@@ -71,9 +87,17 @@ Object {
       "isDefault": false,
       "name": "Medewerker",
       "permissions": Object {
+        "conferences": Object {
+          "edit": false,
+          "view": false,
+        },
         "personas": Object {
           "edit": false,
           "view": true,
+        },
+        "programs": Object {
+          "edit": false,
+          "view": false,
         },
         "roles": Object {
           "edit": false,
@@ -99,7 +123,15 @@ Object {
       "isDefault": false,
       "name": "Admin",
       "permissions": Object {
+        "conferences": Object {
+          "edit": true,
+          "view": true,
+        },
         "personas": Object {
+          "edit": true,
+          "view": true,
+        },
+        "programs": Object {
           "edit": true,
           "view": true,
         },
@@ -139,7 +171,15 @@ Object {
       "isDefault": false,
       "name": "Admin",
       "permissions": Object {
+        "conferences": Object {
+          "edit": true,
+          "view": true,
+        },
         "personas": Object {
+          "edit": true,
+          "view": true,
+        },
+        "programs": Object {
           "edit": true,
           "view": true,
         },
@@ -179,7 +219,15 @@ Object {
       "isDefault": false,
       "name": "Admin",
       "permissions": Object {
+        "conferences": Object {
+          "edit": true,
+          "view": true,
+        },
         "personas": Object {
+          "edit": true,
+          "view": true,
+        },
+        "programs": Object {
           "edit": true,
           "view": true,
         },
@@ -219,8 +267,16 @@ Object {
       "isDefault": false,
       "name": "Support",
       "permissions": Object {
+        "conferences": Object {
+          "edit": true,
+          "view": true,
+        },
         "personas": Object {
           "edit": false,
+          "view": true,
+        },
+        "programs": Object {
+          "edit": true,
           "view": true,
         },
         "roles": Object {
@@ -259,7 +315,15 @@ Object {
       "isDefault": false,
       "name": "Admin",
       "permissions": Object {
+        "conferences": Object {
+          "edit": true,
+          "view": true,
+        },
         "personas": Object {
+          "edit": true,
+          "view": true,
+        },
+        "programs": Object {
           "edit": true,
           "view": true,
         },
@@ -287,9 +351,17 @@ Object {
       "isDefault": false,
       "name": "Medewerker",
       "permissions": Object {
+        "conferences": Object {
+          "edit": false,
+          "view": false,
+        },
         "personas": Object {
           "edit": false,
           "view": true,
+        },
+        "programs": Object {
+          "edit": false,
+          "view": false,
         },
         "roles": Object {
           "edit": false,
@@ -315,8 +387,16 @@ Object {
       "isDefault": false,
       "name": "Support",
       "permissions": Object {
+        "conferences": Object {
+          "edit": true,
+          "view": true,
+        },
         "personas": Object {
           "edit": false,
+          "view": true,
+        },
+        "programs": Object {
+          "edit": true,
           "view": true,
         },
         "roles": Object {
