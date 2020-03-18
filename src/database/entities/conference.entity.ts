@@ -6,9 +6,9 @@ export class Conference extends BaseEntity {
     @Column({ unique: false })
     name: string;
 
-    @Column({ nullable: true })
+    @Column({ nullable: false })
     startDate: Date;
 
-    @Column({ nullable: true })
+    @Column({ nullable: false })
     endDate: Date;
 }
