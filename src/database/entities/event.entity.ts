@@ -1,4 +1,5 @@
 import { Entity, Column, ManyToOne } from 'typeorm';
+
 import { BaseEntity } from './base.entity';
 import { Program } from './program.entity';
 import { Room } from './room.entity';
