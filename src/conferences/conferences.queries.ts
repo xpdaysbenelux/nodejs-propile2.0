@@ -7,7 +7,9 @@ const conferenceFields = [
     'conference.name',
     'conference.startDate',
     'conference.endDate',
-    'rooms',
+    'rooms.id',
+    'rooms.name',
+    'rooms.maxParticipants',
 ];
 
 @Injectable()
