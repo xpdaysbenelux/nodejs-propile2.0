@@ -6,6 +6,7 @@ export class RoomRequest {
     readonly name: string;
 
     @IsInt()
+    @IsNotEmpty()
     readonly maxParticipants: number;
 
     @IsString()
