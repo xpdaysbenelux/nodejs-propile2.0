@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { ConferenceRepository } from 'src/database';
+
+import { ConferenceRepository } from '../database';
 import { ConferenceResponse } from './dto';
 
 const conferenceFields = [
