@@ -6,13 +6,13 @@ export class CreateConferenceRequest {
     @IsNotEmpty()
     readonly name: string;
 
-    @IsDate()
+    @IsString()
     @IsNotEmpty()
-    readonly startDate: Date;
+    readonly startDate: string;
 
-    @IsDate()
+    @IsString()
     @IsNotEmpty()
-    readonly endDate: Date;
+    readonly endDate: string;
 
     @ArrayNotEmpty()
     readonly rooms: RoomRequest[];
