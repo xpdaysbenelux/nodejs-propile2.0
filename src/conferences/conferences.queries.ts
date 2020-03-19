@@ -1,0 +1,18 @@
+import { Injectable } from '@nestjs/common';
+import { ConferenceRepository } from 'src/database';
+import { ConferenceResponse } from './dto';
+
+const conferenceFields = [
+    'conference.id',
+    'conference.name',
+    'conference.startDate',
+    'conference.endDate',
+    'rooms',
+];
+
+@Injectable()
+export class ConferencesQueries {
+    constructor(private readonly conferenceRepository: ConferenceRepository) {}
+
+    //async getConference(conferenceId: string): Promise<ConferenceResponse> {}
+}
