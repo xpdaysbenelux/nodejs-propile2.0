@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Body } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Get, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { RequiredPermissions, UserSession } from '../_shared/decorators';
@@ -7,7 +7,11 @@ import {
     AuthenticatedGuard,
 } from '../_shared/guards';
 import { ConferencesService } from './conferences.service';
-import { CreateConferenceRequest, ConferenceResponse } from './dto';
+import {
+    CreateConferenceRequest,
+    ConferenceResponse,
+    ConferenceIdParam,
+} from './dto';
 import { IUserSession } from '../_shared/constants';
 import { ConferencesQueries } from './conferences.queries';
 
@@ -19,6 +23,15 @@ export class ConferencesController {
         private readonly conferencesService: ConferencesService,
         private readonly conferenceQueries: ConferencesQueries,
     ) {}
+
+    @RequiredPermissions({ conferences: { view: true, edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
+    @Get(':conferenceId')
+    getConference(
+        @Param() params: ConferenceIdParam,
+    ): Promise<ConferenceResponse> {
+        return this.conferenceQueries.getConference(params.conferenceId);
+    }
 
     @RequiredPermissions({ conferences: { edit: true } })
     @UseGuards(RequiredPermissionsGuard)

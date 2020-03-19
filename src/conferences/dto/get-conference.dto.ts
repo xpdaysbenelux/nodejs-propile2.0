@@ -1,4 +1,5 @@
 import { BaseEntityResponse } from '../../_shared/dto';
+import { IsUUID } from 'class-validator';
 
 export class ConferenceResponse extends BaseEntityResponse {
     readonly name: string;
@@ -11,4 +12,9 @@ class RoomResponse {
     readonly id: string;
     readonly name: string;
     readonly maxParticipants: number;
+}
+
+export class ConferenceIdParam {
+    @IsUUID('4')
+    readonly conferenceId: string;
 }
