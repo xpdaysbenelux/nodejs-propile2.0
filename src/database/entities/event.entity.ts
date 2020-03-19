@@ -17,9 +17,9 @@ export class Event extends BaseEntity {
     @Column({ nullable: false })
     endTime: Date;
 
-    @ManyToOne(() => Program, { cascade: ['insert'] })
+    @ManyToOne(() => Program)
     program: Program;
 
-    @ManyToOne(() => Room, { cascade: ['insert'] })
+    @ManyToOne(() => Room)
     room: Room;
 }

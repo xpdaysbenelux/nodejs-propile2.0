@@ -1,6 +1,7 @@
-import { Entity, Column, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { Conference } from './conference.entity';
+import { Event } from './event.entity';
 
 @Entity()
 export class Program extends BaseEntity {
@@ -16,6 +17,13 @@ export class Program extends BaseEntity {
     @Column({ nullable: false })
     endTime: Date;
 
-    @ManyToOne(() => Conference, { cascade: ['insert'] })
+    @ManyToOne(() => Conference)
     conference: Conference;
+
+    @OneToMany(
+        () => Event,
+        event => event.program,
+        { cascade: ['remove'] },
+    )
+    events: Event[];
 }
