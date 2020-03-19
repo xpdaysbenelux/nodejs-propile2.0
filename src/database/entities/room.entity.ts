@@ -1,4 +1,5 @@
 import { Entity, Column, ManyToOne, OneToMany } from 'typeorm';
+
 import { BaseEntity } from './base.entity';
 import { Conference } from './conference.entity';
 import { Event } from './event.entity';
