@@ -3,7 +3,7 @@ import { BaseEntity } from './base.entity';
 
 @Entity()
 export class Conference extends BaseEntity {
-    @Column({ unique: false })
+    @Column({ unique: true })
     name: string;
 
     @Column({ nullable: false })
