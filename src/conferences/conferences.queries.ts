@@ -18,7 +18,7 @@ export class ConferencesQueries {
         return this.conferenceRepository
             .createQueryBuilder('conference')
             .select(conferenceFields)
-            .where('conference.id = :=conferenceId', { conferenceId })
+            .where('conference.id = :conferenceId', { conferenceId })
             .innerJoin('conference.rooms', 'rooms')
             .getOne();
     }
