@@ -10,5 +10,5 @@ export class ConferenceResponse extends BaseEntityResponse {
 class RoomResponse {
     readonly id: string;
     readonly name: string;
-    readonly maxParticipants: string;
+    readonly maxParticipants: number;
 }

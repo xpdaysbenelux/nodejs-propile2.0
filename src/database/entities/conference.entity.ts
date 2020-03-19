@@ -19,7 +19,7 @@ export class Conference extends BaseEntity {
         program => program.conference,
         { cascade: ['remove'] },
     )
-    program: Program;
+    programs: Program[];
 
     @OneToMany(
         () => Room,
