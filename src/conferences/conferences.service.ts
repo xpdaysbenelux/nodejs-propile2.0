@@ -3,7 +3,10 @@ import { Injectable } from '@nestjs/common';
 import { ConferenceRepository, Conference, Room } from '../database';
 import { CreateConferenceRequest, RoomRequest } from './dto';
 import { IUserSession } from '../_shared/constants';
-import { ConferenceNameAlreadyInUse } from './errors';
+import {
+    ConferenceNameAlreadyInUse,
+    ConferenceMustHaveAtLeastTwoRooms,
+} from './errors';
 
 @Injectable()
 export class ConferencesService {
@@ -37,6 +40,10 @@ export class ConferencesService {
     }
 
     private makeConferenceRooms(givenRooms: RoomRequest[]): Room[] {
+        if (givenRooms.length < 2) {
+            throw new ConferenceMustHaveAtLeastTwoRooms();
+        }
+
         const rooms: Room[] = [];
         givenRooms.forEach(room => {
             const newRoom = new Room();

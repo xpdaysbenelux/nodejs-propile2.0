@@ -8,3 +8,12 @@ export class ConferenceNameAlreadyInUse extends BadRequestException {
         );
     }
 }
+
+export class ConferenceMustHaveAtLeastTwoRooms extends BadRequestException {
+    constructor() {
+        super(
+            'A conference must have at least two rooms.',
+            'CONFERENCE_MUST_HAVE_AT_LEAST_TWO_ROOMS',
+        );
+    }
+}
