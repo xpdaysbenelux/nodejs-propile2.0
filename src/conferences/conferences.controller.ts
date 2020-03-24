@@ -1,4 +1,12 @@
-import { Controller, UseGuards, Post, Body, Get, Param } from '@nestjs/common';
+import {
+    Controller,
+    UseGuards,
+    Post,
+    Body,
+    Get,
+    Param,
+    Query,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { RequiredPermissions, UserSession } from '../_shared/decorators';
@@ -11,6 +19,8 @@ import {
     CreateConferenceRequest,
     ConferenceResponse,
     ConferenceIdParam,
+    GetConferencesRequestQuery,
+    GetConferencesResponse,
 } from './dto';
 import { IUserSession } from '../_shared/constants';
 import { ConferencesQueries } from './conferences.queries';
@@ -31,6 +41,15 @@ export class ConferencesController {
         @Param() params: ConferenceIdParam,
     ): Promise<ConferenceResponse> {
         return this.conferenceQueries.getConference(params.conferenceId);
+    }
+
+    @RequiredPermissions({ conferences: { view: true, edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
+    @Get()
+    getConferences(
+        @Query() query: GetConferencesRequestQuery,
+    ): Promise<GetConferencesResponse> {
+        return this.conferenceQueries.getConferences(query);
     }
 
     @RequiredPermissions({ conferences: { edit: true } })
