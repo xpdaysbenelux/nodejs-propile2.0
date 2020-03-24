@@ -6,7 +6,7 @@ import { Event } from './event.entity';
 
 @Entity()
 export class Room extends BaseEntity {
-    @Column({ unique: true })
+    @Column({ unique: false })
     name: string;
 
     @Column({ nullable: false })
