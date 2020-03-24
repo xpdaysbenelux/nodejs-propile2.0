@@ -8,10 +8,10 @@ import {
 } from 'ts-mockito';
 import * as faker from 'faker';
 import { TestingModule, Test } from '@nestjs/testing';
+import { getCustomRepositoryToken } from '@nestjs/typeorm';
 
 import { ConferencesService } from './conferences.service';
 import { ConferenceRepository, Conference } from '../database';
-import { getCustomRepositoryToken } from '@nestjs/typeorm';
 import { createTestUserSession, createTestConference } from '../_util/testing';
 import { ConferenceNameAlreadyInUse } from './errors';
 

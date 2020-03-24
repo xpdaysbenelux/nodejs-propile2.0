@@ -1,5 +1,6 @@
-import { BaseEntityResponse } from '../../_shared/dto';
 import { IsUUID } from 'class-validator';
+
+import { BaseEntityResponse } from '../../_shared/dto';
 
 export class ConferenceResponse extends BaseEntityResponse {
     readonly name: string;

@@ -1,4 +1,5 @@
 import { IsString, IsDate, ArrayNotEmpty, IsNotEmpty } from 'class-validator';
+
 import { RoomRequest } from './room.dto';
 
 export class CreateConferenceRequest {
