@@ -1,6 +1,6 @@
-import { PagingQuery, PagingMeta } from 'src/_shared/dto';
 import { IsOptional, IsEnum } from 'class-validator';
 
+import { PagingQuery, PagingMeta } from '../../_shared/dto';
 import { ConferenceResponse } from './get-conference.dto';
 
 export enum ConferencesSortColumns {
