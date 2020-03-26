@@ -1,4 +1,5 @@
 import { IsUUID } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 import { BaseEntityResponse } from '../../_shared/dto';
 import { ConferenceResponse } from '../../conferences/dto';
@@ -22,6 +23,7 @@ class EventResponse {
 }
 
 export class ProgramIdParam {
+    @ApiProperty({ required: true })
     @IsUUID('4')
     readonly programId: string;
 }
