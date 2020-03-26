@@ -5,6 +5,7 @@ import {
     UserRepository,
     RoleRepository,
     SessionRepository,
+    ProgramRepository,
     PersonaRepository,
     ConferenceRepository,
 } from './repositories';
@@ -40,6 +41,7 @@ import { Config } from '../config';
             UserRepository,
             SessionRepository,
             ConferenceRepository,
+            ProgramRepository,
             PersonaRepository,
         ]),
     ],

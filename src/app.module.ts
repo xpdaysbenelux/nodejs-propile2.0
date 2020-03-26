@@ -6,6 +6,7 @@ import { SessionsModule } from './sessions/sessions.module';
 import { MailerModule } from './mailer/mailer.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ConferencesModule } from './conferences/conferences.module';
+import { ProgramsModule } from './programs/programs.module';
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import { ConferencesModule } from './conferences/conferences.module';
         RolesModule,
         UsersModule,
         SessionsModule,
+        ProgramsModule,
         ConferencesModule,
     ],
 })
