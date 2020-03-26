@@ -4,7 +4,7 @@ import { ProgramRepository } from '../database';
 import { ProgramResponse } from './dto/get-program.dto';
 
 const programFields = [
-    'profram.id',
+    'program.id',
     'program.title',
     'program.date',
     'program.startTime',
