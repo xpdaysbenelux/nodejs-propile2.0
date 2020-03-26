@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ProgramRepository, Program } from 'src/database';
+
+import { ProgramRepository, Program } from '../database';
 import { CreateProgramRequest } from './dto/create-program.dto';
-import { IUserSession } from 'src/_shared/constants';
+import { IUserSession } from '../_shared/constants';
 import {
     ProgramNameAlreadyInUse,
     ProgramDateMustBeBetweenConferenceDates,
@@ -33,11 +34,15 @@ export class ProgramsService {
             programDate > new Date(conference.endDate)
         ) {
             throw new ProgramDateMustBeBetweenConferenceDates();
+        } else {
+            program.date = programDate;
         }
 
         program.startTime = new Date(startTime);
         program.endTime = new Date(endTime);
         program.conference = conference;
+        program.createdBy = session.email;
+        program.createdAt = new Date();
 
         await this.programsRepository.save(program);
 
