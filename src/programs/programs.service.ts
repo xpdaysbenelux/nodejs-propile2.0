@@ -41,6 +41,6 @@ export class ProgramsService {
 
         await this.programsRepository.save(program);
 
-        return 'ello';
+        return program.id;
     }
 }

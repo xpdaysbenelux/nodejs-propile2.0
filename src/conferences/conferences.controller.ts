@@ -40,6 +40,7 @@ export class ConferencesController {
     getConference(
         @Param() params: ConferenceIdParam,
     ): Promise<ConferenceResponse> {
+        console.log('me is called');
         return this.conferenceQueries.getConference(params.conferenceId);
     }
 
