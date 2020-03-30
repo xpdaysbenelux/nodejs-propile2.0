@@ -17,3 +17,9 @@ export class ConferenceMustHaveAtLeastTwoRooms extends BadRequestException {
         );
     }
 }
+
+export class ConferenceNotFoud extends BadRequestException {
+    constructor() {
+        super('The conference was not found.', 'CONFERENCE_NOT_FOUND');
+    }
+}

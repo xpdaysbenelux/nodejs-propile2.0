@@ -19,5 +19,5 @@ export class CreateProgramRequest {
     readonly endTime: string;
 
     @IsNotEmpty()
-    readonly conference: Conference;
+    readonly conferenceId: string;
 }

@@ -1,41 +1,53 @@
 import { Injectable } from '@nestjs/common';
 import { parseISO, isWithinInterval, isSameDay } from 'date-fns';
 
-import { ProgramRepository, Program } from '../database';
+import { ProgramRepository, Program, ConferenceRepository } from '../database';
 import { CreateProgramRequest } from './dto/create-program.dto';
 import { IUserSession } from '../_shared/constants';
 import {
-    ProgramNameAlreadyInUse,
+    ProgramTitleAlreadyInUse,
     ProgramDateMustBeBetweenConferenceDates,
     StartEndTimeDatesMustBeSameAsProgramDate,
 } from './errors';
+import { ConferenceNotFoud } from '../conferences/errors';
 
 @Injectable()
 export class ProgramsService {
-    constructor(private readonly programsRepository: ProgramRepository) {}
+    constructor(
+        private readonly programsRepository: ProgramRepository,
+        private readonly conferenceRepository: ConferenceRepository,
+    ) {}
 
     async createProgram(
         body: CreateProgramRequest,
         session: IUserSession,
     ): Promise<string> {
-        const { title, date, startTime, endTime, conference } = body;
-        const programDate = new Date(parseISO(date));
-        const programStartTime = new Date(parseISO(startTime));
-        const programEndTime = new Date(parseISO(endTime));
+        const { title, date, startTime, endTime, conferenceId } = body;
+        const programDate = parseISO(date);
+        const programStartTime = parseISO(startTime);
+        const programEndTime = parseISO(endTime);
 
         const program = new Program();
+
         const existingProgram = await this.programsRepository.findOne({
             title,
         });
         if (existingProgram) {
-            throw new ProgramNameAlreadyInUse();
+            throw new ProgramTitleAlreadyInUse();
         } else program.title = title;
+
+        const conference = await this.conferenceRepository.findOne({
+            id: conferenceId,
+        });
+        if (!conference) {
+            throw new ConferenceNotFoud();
+        } else program.conference = conference;
 
         // Check if the program date is one of or between the conference dates
         if (
             !isWithinInterval(programDate, {
-                start: parseISO(conference.startDate.toString()),
-                end: parseISO(conference.endDate.toString()),
+                start: conference.startDate,
+                end: conference.endDate,
             })
         ) {
             throw new ProgramDateMustBeBetweenConferenceDates();
@@ -52,7 +64,6 @@ export class ProgramsService {
             program.endTime = new Date(endTime);
         }
 
-        program.conference = conference;
         program.createdBy = session?.email;
         program.createdAt = new Date();
 

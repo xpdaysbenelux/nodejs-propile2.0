@@ -1,10 +1,10 @@
 import { BadRequestException } from '@nestjs/common';
 
-export class ProgramNameAlreadyInUse extends BadRequestException {
+export class ProgramTitleAlreadyInUse extends BadRequestException {
     constructor() {
         super(
-            'A program with this name already exists.',
-            'PROGRAM_NAME_ALREADY_IN_USE',
+            'A program with this title already exists.',
+            'PROGRAM_TITLE_ALREADY_IN_USE',
         );
     }
 }
