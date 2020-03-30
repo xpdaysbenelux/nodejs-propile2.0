@@ -9,9 +9,10 @@ import {
 import * as faker from 'faker';
 import { TestingModule, Test } from '@nestjs/testing';
 import { getCustomRepositoryToken } from '@nestjs/typeorm';
+import { parseISO } from 'date-fns';
 
 import { ConferencesService } from './conferences.service';
-import { ConferenceRepository, Conference } from '../database';
+import { ConferenceRepository } from '../database';
 import { createTestUserSession, createTestConference } from '../_util/testing';
 import { ConferenceNameAlreadyInUse } from './errors';
 
@@ -70,8 +71,8 @@ describe('ConferencesService', () => {
                 conferencesRepository.save(
                     objectContaining({
                         name: createBody.name,
-                        startDate: new Date(createBody.startDate),
-                        endDate: new Date(createBody.endDate),
+                        startDate: parseISO(createBody.startDate),
+                        endDate: parseISO(createBody.endDate),
                         rooms: createBody.rooms,
                         createdBy: currentUser.email,
                     }),

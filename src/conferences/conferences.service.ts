@@ -29,8 +29,8 @@ export class ConferencesService {
 
         const conference = new Conference();
         conference.name = name;
-        conference.startDate = new Date(parseISO(startDate));
-        conference.endDate = new Date(parseISO(endDate));
+        conference.startDate = parseISO(startDate);
+        conference.endDate = parseISO(endDate);
         conference.createdBy = session.email;
         conference.createdAt = new Date();
         conference.rooms = this.makeConferenceRooms(rooms);
