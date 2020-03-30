@@ -12,7 +12,7 @@ import {
 } from '../_shared/guards';
 import { ProgramResponse, ProgramIdParam } from './dto/get-program.dto';
 
-//@UseGuards(AuthenticatedGuard)
+@UseGuards(AuthenticatedGuard)
 @Controller('programs')
 @ApiTags('programs')
 export class ProgramController {
@@ -21,15 +21,15 @@ export class ProgramController {
         private readonly programQueries: ProgramQueries,
     ) {}
 
-    //@RequiredPermissions({ programs: { view: true, edit: true } })
-    //@UseGuards(RequiredPermissionsGuard)
+    @RequiredPermissions({ programs: { view: true, edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
     @Get(':programId')
     getConference(@Param() params: ProgramIdParam): Promise<ProgramResponse> {
         return this.programQueries.getProgram(params.programId);
     }
 
-    //@RequiredPermissions({ programs: { edit: true } })
-    //@UseGuards(RequiredPermissionsGuard)
+    @RequiredPermissions({ programs: { edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
     @Post()
     async createProgram(
         @Body() body: CreateProgramRequest,
