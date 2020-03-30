@@ -60,8 +60,8 @@ export class ProgramsService {
         ) {
             throw new StartEndTimeDatesMustBeSameAsProgramDate();
         } else {
-            program.startTime = new Date(startTime);
-            program.endTime = new Date(endTime);
+            program.startTime = programStartTime;
+            program.endTime = programEndTime;
         }
 
         program.createdBy = session?.email;
