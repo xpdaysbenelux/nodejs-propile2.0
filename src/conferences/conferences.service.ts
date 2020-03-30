@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { parseISO } from 'date-fns';
 
 import { ConferenceRepository, Conference, Room } from '../database';
 import { CreateConferenceRequest, RoomRequest } from './dto';
@@ -28,8 +29,8 @@ export class ConferencesService {
 
         const conference = new Conference();
         conference.name = name;
-        conference.startDate = new Date(startDate);
-        conference.endDate = new Date(endDate);
+        conference.startDate = new Date(parseISO(startDate));
+        conference.endDate = new Date(parseISO(endDate));
         conference.createdBy = session.email;
         conference.createdAt = new Date();
         conference.rooms = this.makeConferenceRooms(rooms);
