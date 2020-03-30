@@ -1,4 +1,12 @@
-import { Body, UseGuards, Controller, Post, Get, Param } from '@nestjs/common';
+import {
+    Body,
+    UseGuards,
+    Controller,
+    Post,
+    Get,
+    Param,
+    Query,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { ProgramsService } from './programs.service';
@@ -11,6 +19,10 @@ import {
     RequiredPermissionsGuard,
 } from '../_shared/guards';
 import { ProgramResponse, ProgramIdParam } from './dto/get-program.dto';
+import {
+    GetProgramsRequestQuery,
+    GetProgramsResponse,
+} from './dto/get-programs.dto';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('programs')
@@ -24,8 +36,17 @@ export class ProgramController {
     @RequiredPermissions({ programs: { view: true, edit: true } })
     @UseGuards(RequiredPermissionsGuard)
     @Get(':programId')
-    getConference(@Param() params: ProgramIdParam): Promise<ProgramResponse> {
+    getProgram(@Param() params: ProgramIdParam): Promise<ProgramResponse> {
         return this.programQueries.getProgram(params.programId);
+    }
+
+    @RequiredPermissions({ programs: { view: true, edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
+    @Get()
+    getPrograms(
+        @Query() query: GetProgramsRequestQuery,
+    ): Promise<GetProgramsResponse> {
+        return this.programQueries.getPrograms(query);
     }
 
     @RequiredPermissions({ programs: { edit: true } })
