@@ -64,7 +64,7 @@ export class ProgramsService {
             program.endTime = programEndTime;
         }
 
-        program.createdBy = session?.email;
+        program.createdBy = session.email;
         program.createdAt = new Date();
 
         await this.programsRepository.save(program);

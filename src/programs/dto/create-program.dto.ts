@@ -1,5 +1,4 @@
 import { IsString, IsNotEmpty, IsDateString } from 'class-validator';
-import { Conference } from '../../database';
 
 export class CreateProgramRequest {
     @IsString()
@@ -18,6 +17,7 @@ export class CreateProgramRequest {
     @IsNotEmpty()
     readonly endTime: string;
 
+    @IsString()
     @IsNotEmpty()
     readonly conferenceId: string;
 }
