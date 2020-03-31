@@ -34,14 +34,16 @@ export class ProgramsService {
         });
         if (existingProgram) {
             throw new ProgramTitleAlreadyInUse();
-        } else program.title = title;
+        }
+        program.title = title;
 
         const conference = await this.conferenceRepository.findOne({
             id: conferenceId,
         });
         if (!conference) {
             throw new ConferenceNotFoud();
-        } else program.conference = conference;
+        }
+        program.conference = conference;
 
         // Check if the program date is one of or between the conference dates
         if (
@@ -51,7 +53,8 @@ export class ProgramsService {
             })
         ) {
             throw new ProgramDateMustBeBetweenConferenceDates();
-        } else program.date = programDate;
+        }
+        program.date = programDate;
 
         // Check if the start & endTime dates are the same as the program date
         if (
@@ -59,10 +62,9 @@ export class ProgramsService {
             !isSameDay(programEndTime, programDate)
         ) {
             throw new StartEndTimeDatesMustBeSameAsProgramDate();
-        } else {
-            program.startTime = programStartTime;
-            program.endTime = programEndTime;
         }
+        program.startTime = programStartTime;
+        program.endTime = programEndTime;
 
         program.createdBy = session.email;
         program.createdAt = new Date();
