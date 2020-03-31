@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { SelectQueryBuilder } from 'typeorm';
 import { mergeDeepLeft } from 'ramda';
 
 import { ProgramRepository, Program } from '../database';
@@ -9,7 +10,6 @@ import {
     ProgramsSortColumns,
 } from './dto/get-programs.dto';
 import { SortDirection } from '../_shared/constants';
-import { SelectQueryBuilder } from 'typeorm';
 
 const programFields = [
     'program.id',
