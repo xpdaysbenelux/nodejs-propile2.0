@@ -1,0 +1,26 @@
+[
+    {
+        "id": "8c4bb08a-befe-460c-818a-71c47ecb0761",
+        "name": "Room 1",
+        "maxParticipants": 50,
+        "conference": { "id": "81bdc928-b92d-4111-91f9-3ef93e203e88" }
+    },
+    {
+        "id": "ce63d11d-c51f-4320-a997-fb31b42a6e08",
+        "name": "Room 2",
+        "maxParticipants": 50,
+        "conference": { "id": "81bdc928-b92d-4111-91f9-3ef93e203e88" }
+    },
+    {
+        "id": "c6ddd134-3edd-4daa-9f59-f29a95650cc3",
+        "name": "Room 7",
+        "maxParticipants": 25,
+        "conference": { "id": "3103e833-90d5-47a9-aace-66432881019e" }
+    },
+    {
+        "id": "f89d9f18-6611-4520-8bff-8347c70a0b45",
+        "name": "Room 8",
+        "maxParticipants": 35,
+        "conference": { "id": "3103e833-90d5-47a9-aace-66432881019e" }
+    }
+]
