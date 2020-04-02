@@ -27,7 +27,7 @@ const programFields = [
 ];
 
 @Injectable()
-export class ProgramQueries {
+export class ProgramsQueries {
     constructor(private readonly programRepository: ProgramRepository) {}
 
     async getProgram(programId: string): Promise<ProgramResponse> {

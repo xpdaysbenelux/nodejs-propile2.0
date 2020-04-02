@@ -10,7 +10,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 
 import { ProgramsService } from './programs.service';
-import { ProgramQueries } from './programs.queries';
+import { ProgramsQueries } from './programs.queries';
 import { CreateProgramRequest } from './dto/create-program.dto';
 import { UserSession, RequiredPermissions } from '../_shared/decorators';
 import { IUserSession } from '../_shared/constants';
@@ -29,15 +29,15 @@ import {
 @ApiTags('programs')
 export class ProgramController {
     constructor(
-        private readonly programService: ProgramsService,
-        private readonly programQueries: ProgramQueries,
+        private readonly programsService: ProgramsService,
+        private readonly programsQueries: ProgramsQueries,
     ) {}
 
     @RequiredPermissions({ programs: { view: true, edit: true } })
     @UseGuards(RequiredPermissionsGuard)
     @Get(':programId')
     getProgram(@Param() params: ProgramIdParam): Promise<ProgramResponse> {
-        return this.programQueries.getProgram(params.programId);
+        return this.programsQueries.getProgram(params.programId);
     }
 
     @RequiredPermissions({ programs: { view: true, edit: true } })
@@ -46,7 +46,7 @@ export class ProgramController {
     getPrograms(
         @Query() query: GetProgramsRequestQuery,
     ): Promise<GetProgramsResponse> {
-        return this.programQueries.getPrograms(query);
+        return this.programsQueries.getPrograms(query);
     }
 
     @RequiredPermissions({ programs: { edit: true } })
@@ -56,10 +56,10 @@ export class ProgramController {
         @Body() body: CreateProgramRequest,
         @UserSession() session: IUserSession,
     ): Promise<ProgramResponse> {
-        const programId = await this.programService.createProgram(
+        const programId = await this.programsService.createProgram(
             body,
             session,
         );
-        return this.programQueries.getProgram(programId);
+        return this.programsQueries.getProgram(programId);
     }
 }
