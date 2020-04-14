@@ -10,9 +10,3 @@ export class ConferenceResponse extends BaseEntityResponse {
     readonly endDate: Date;
     readonly rooms: RoomResponse[];
 }
-
-export class ConferenceIdParam {
-    @ApiProperty({ required: true })
-    @IsUUID('4')
-    readonly conferenceId: string;
-}

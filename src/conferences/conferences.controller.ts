@@ -6,6 +6,7 @@ import {
     Get,
     Param,
     Query,
+    Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -21,6 +22,7 @@ import {
     ConferenceIdParam,
     GetConferencesRequestQuery,
     GetConferencesResponse,
+    UpdateConferenceRequest,
 } from './dto';
 import { IUserSession } from '../_shared/constants';
 import { ConferencesQueries } from './conferences.queries';
@@ -64,5 +66,21 @@ export class ConferencesController {
             session,
         );
         return this.conferenceQueries.getConference(conferenceId);
+    }
+
+    @RequiredPermissions({ conferences: { edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
+    @Put(':conferenceId')
+    async updateSession(
+        @Body() body: UpdateConferenceRequest,
+        @Param() params: ConferenceIdParam,
+        @UserSession() userSession: IUserSession,
+    ): Promise<string> {
+        const conferenceId = await this.conferencesService.updateConference(
+            body,
+            params.conferenceId,
+            userSession,
+        );
+        return conferenceId;
     }
 }
