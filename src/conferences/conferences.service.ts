@@ -19,14 +19,12 @@ import {
     ConferenceMustHaveAtLeastTwoRooms,
     ConferenceNotFoud,
 } from './errors';
-import { RoomsService } from '../rooms/rooms.service';
 
 @Injectable()
 export class ConferencesService {
     constructor(
         private readonly conferenceRepository: ConferenceRepository,
         private readonly roomRepository: RoomRepository,
-        //private readonly roomsService: RoomsService,
         private connection: Connection,
     ) {}
 
@@ -90,6 +88,7 @@ export class ConferencesService {
         existingConference.updatedBy = user.email;
         existingConference.updatedAt = new Date();
 
+        // chech if some of the exisiting rooms are gone in the given form
         const roomsToDelete = existingConference.rooms.filter(
             room => !rooms.find(newRoom => newRoom.id === room.id),
         );
