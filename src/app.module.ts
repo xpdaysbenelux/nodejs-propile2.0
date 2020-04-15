@@ -7,7 +7,6 @@ import { MailerModule } from './mailer/mailer.module';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ConferencesModule } from './conferences/conferences.module';
 import { ProgramsModule } from './programs/programs.module';
-import { RoomsModule } from './rooms/rooms.module';
 
 @Module({
     imports: [
@@ -18,7 +17,6 @@ import { RoomsModule } from './rooms/rooms.module';
         SessionsModule,
         ProgramsModule,
         ConferencesModule,
-        RoomsModule,
     ],
 })
 export class AppModule {}
