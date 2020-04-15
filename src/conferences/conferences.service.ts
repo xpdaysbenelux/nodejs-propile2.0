@@ -2,7 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { parseISO } from 'date-fns';
 import { Not, Connection } from 'typeorm';
 
-import { ConferenceRepository, Conference, Room } from '../database';
+import {
+    ConferenceRepository,
+    Conference,
+    Room,
+    RoomRepository,
+} from '../database';
 import {
     CreateConferenceRequest,
     RoomRequest,
@@ -20,6 +25,7 @@ import { RoomsService } from '../rooms/rooms.service';
 export class ConferencesService {
     constructor(
         private readonly conferenceRepository: ConferenceRepository,
+        private readonly roomRepository: RoomRepository,
         //private readonly roomsService: RoomsService,
         private connection: Connection,
     ) {}
@@ -85,8 +91,17 @@ export class ConferencesService {
         existingConference.updatedAt = new Date();
         existingConference.rooms = this.makeConferenceRooms(rooms);
 
+        // Find the rooms with no conferenceId
+        const roomsToDelete = await this.roomRepository.find({
+            where: {
+                conference: null,
+            },
+        });
+        console.log(roomsToDelete);
+
         await this.connection.transaction(async manager => {
             await this.conferenceRepository.save(existingConference);
+            await this.roomRepository.remove(roomsToDelete);
             // await this.roomsService.deleteRoomsFromConference(conferenceId);
         });
 
