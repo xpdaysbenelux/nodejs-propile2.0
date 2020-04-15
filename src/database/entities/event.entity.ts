@@ -18,9 +18,17 @@ export class Event extends BaseEntity {
     @Column({ nullable: false })
     endTime: Date;
 
-    @ManyToOne(() => Program)
+    @ManyToOne(
+        () => Program,
+        program => program.events,
+        { onDelete: 'CASCADE' },
+    )
     program: Program;
 
-    @ManyToOne(() => Room)
+    @ManyToOne(
+        () => Room,
+        room => room.events,
+        { onDelete: 'CASCADE' },
+    )
     room: Room;
 }

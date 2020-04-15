@@ -18,13 +18,13 @@ export class Room extends BaseEntity {
     @ManyToOne(
         () => Conference,
         conference => conference.rooms,
+        { onDelete: 'CASCADE' },
     )
     conference: Conference;
 
     @OneToMany(
         () => Event,
         event => event.room,
-        { cascade: ['remove'] },
     )
     events: Event[];
 }

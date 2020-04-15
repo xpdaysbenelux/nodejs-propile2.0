@@ -17,13 +17,16 @@ export class Program extends BaseEntity {
     @Column({ nullable: false })
     endTime: Date;
 
-    @ManyToOne(() => Conference)
+    @ManyToOne(
+        () => Conference,
+        conference => conference.programs,
+        { onDelete: 'CASCADE' },
+    )
     conference: Conference;
 
     @OneToMany(
         () => Event,
         event => event.program,
-        { cascade: ['remove'] },
     )
     events: Event[];
 }

@@ -17,14 +17,13 @@ export class Conference extends BaseEntity {
     @OneToMany(
         () => Program,
         program => program.conference,
-        { cascade: ['remove'] },
     )
     programs: Program[];
 
     @OneToMany(
         () => Room,
         room => room.conference,
-        { cascade: ['insert', 'update', 'remove'] },
+        { cascade: ['insert', 'update'] },
     )
     rooms: Room[];
 }
