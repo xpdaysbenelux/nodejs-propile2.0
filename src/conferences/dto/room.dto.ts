@@ -2,6 +2,9 @@ import { IsString, IsInt, IsNotEmpty, IsOptional } from 'class-validator';
 
 export class RoomRequest {
     @IsString()
+    readonly id?: string;
+
+    @IsString()
     @IsNotEmpty()
     readonly name: string;
 

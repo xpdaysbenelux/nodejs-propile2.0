@@ -8,6 +8,7 @@ import {
     ProgramRepository,
     PersonaRepository,
     ConferenceRepository,
+    RoomRepository,
 } from './repositories';
 import {
     User,
@@ -43,6 +44,7 @@ import { Config } from '../config';
             ConferenceRepository,
             ProgramRepository,
             PersonaRepository,
+            RoomRepository,
         ]),
     ],
     exports: [TypeOrmModule],
