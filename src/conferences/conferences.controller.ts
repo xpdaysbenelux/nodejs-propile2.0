@@ -71,16 +71,16 @@ export class ConferencesController {
     @RequiredPermissions({ conferences: { edit: true } })
     @UseGuards(RequiredPermissionsGuard)
     @Put(':conferenceId')
-    async updateSession(
+    async updateConference(
         @Body() body: UpdateConferenceRequest,
         @Param() params: ConferenceIdParam,
         @UserSession() userSession: IUserSession,
-    ): Promise<string> {
+    ): Promise<ConferenceResponse> {
         const conferenceId = await this.conferencesService.updateConference(
             body,
             params.conferenceId,
             userSession,
         );
-        return conferenceId;
+        return this.conferenceQueries.getConference(conferenceId);
     }
 }
