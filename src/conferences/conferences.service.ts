@@ -89,20 +89,15 @@ export class ConferencesService {
         existingConference.endDate = parseISO(endDate);
         existingConference.updatedBy = user.email;
         existingConference.updatedAt = new Date();
+
+        const roomsToDelete = existingConference.rooms.filter(
+            room => !rooms.find(newRoom => newRoom.id === room.id),
+        );
         existingConference.rooms = this.makeConferenceRooms(rooms);
 
-        // Find the rooms with no conferenceId
-        const roomsToDelete = await this.roomRepository.find({
-            where: {
-                conference: null,
-            },
-        });
-        console.log(roomsToDelete);
-
         await this.connection.transaction(async manager => {
-            await this.conferenceRepository.save(existingConference);
-            await this.roomRepository.remove(roomsToDelete);
-            // await this.roomsService.deleteRoomsFromConference(conferenceId);
+            await manager.save(existingConference);
+            await manager.remove(roomsToDelete);
         });
 
         return existingConference.id;
