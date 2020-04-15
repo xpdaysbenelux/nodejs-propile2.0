@@ -93,6 +93,19 @@ export class ConferencesService {
         return existingConference.id;
     }
 
+    async deleteConference(conferenceId: string): Promise<string> {
+        const existingConference = await this.conferenceRepository.findOne({
+            where: { id: conferenceId },
+            relations: ['rooms'],
+        });
+        if (!existingConference) {
+            throw new ConferenceNotFoud();
+        }
+
+        await this.conferenceRepository.delete(conferenceId);
+        return conferenceId;
+    }
+
     private makeConferenceRooms(givenRooms: RoomRequest[]): Room[] {
         if (givenRooms.length < 2) {
             throw new ConferenceMustHaveAtLeastTwoRooms();

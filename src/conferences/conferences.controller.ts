@@ -7,6 +7,7 @@ import {
     Param,
     Query,
     Put,
+    Delete,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -82,5 +83,17 @@ export class ConferencesController {
             userSession,
         );
         return this.conferenceQueries.getConference(conferenceId);
+    }
+
+    @RequiredPermissions({ conferences: { edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
+    @Delete(':conferenceId')
+    async deleteConference(
+        @Param() params: ConferenceIdParam,
+    ): Promise<string> {
+        const conferenceId = await this.conferencesService.deleteConference(
+            params.conferenceId,
+        );
+        return conferenceId;
     }
 }
