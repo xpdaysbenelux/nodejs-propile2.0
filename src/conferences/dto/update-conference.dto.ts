@@ -1,5 +1,4 @@
-import { IsUUID, IsString, IsNotEmpty, ArrayNotEmpty } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsNotEmpty, ArrayNotEmpty } from 'class-validator';
 import { RoomRequest } from '.';
 
 export class UpdateConferenceRequest {

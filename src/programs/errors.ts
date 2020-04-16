@@ -26,3 +26,9 @@ export class StartEndTimeDatesMustBeSameAsProgramDate extends BadRequestExceptio
         );
     }
 }
+
+export class ProgramNotFoud extends BadRequestException {
+    constructor() {
+        super('The program was not found.', 'PROGRAM_NOT_FOUND');
+    }
+}

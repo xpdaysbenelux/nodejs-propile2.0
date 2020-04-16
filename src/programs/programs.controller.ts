@@ -6,6 +6,8 @@ import {
     Get,
     Param,
     Query,
+    Put,
+    Delete,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -23,6 +25,7 @@ import {
     GetProgramsRequestQuery,
     GetProgramsResponse,
 } from './dto/get-programs.dto';
+import { UpdateProgramRequest } from './dto';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('programs')
@@ -61,5 +64,31 @@ export class ProgramController {
             session,
         );
         return this.programsQueries.getProgram(programId);
+    }
+
+    @RequiredPermissions({ programs: { edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
+    @Put(':programId')
+    async updateProgram(
+        @Body() body: UpdateProgramRequest,
+        @Param() params: ProgramIdParam,
+        @UserSession() userSession: IUserSession,
+    ): Promise<ProgramResponse> {
+        const programId = await this.programsService.updateProgram(
+            body,
+            params.programId,
+            userSession,
+        );
+        return this.programsQueries.getProgram(programId);
+    }
+
+    @RequiredPermissions({ programs: { edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
+    @Delete(':programId')
+    async deleteProgram(@Param() params: ProgramIdParam): Promise<string> {
+        const programId = await this.programsService.deleteProgram(
+            params.programId,
+        );
+        return programId;
     }
 }
