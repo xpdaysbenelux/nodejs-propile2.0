@@ -3,12 +3,12 @@ import { SelectQueryBuilder } from 'typeorm';
 import { mergeDeepLeft } from 'ramda';
 
 import { ProgramRepository, Program } from '../database';
-import { ProgramResponse } from './dto/get-program.dto';
 import {
+    ProgramResponse,
     GetProgramsRequestQuery,
     GetProgramsResponse,
     ProgramsSortColumns,
-} from './dto/get-programs.dto';
+} from './dto';
 import { SortDirection } from '../_shared/constants';
 
 const programFields = [

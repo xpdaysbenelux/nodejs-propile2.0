@@ -20,12 +20,13 @@ import {
     AuthenticatedGuard,
     RequiredPermissionsGuard,
 } from '../_shared/guards';
-import { ProgramResponse, ProgramIdParam } from './dto/get-program.dto';
 import {
+    ProgramResponse,
+    ProgramIdParam,
     GetProgramsRequestQuery,
     GetProgramsResponse,
-} from './dto/get-programs.dto';
-import { UpdateProgramRequest } from './dto';
+    UpdateProgramRequest,
+} from './dto';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('programs')
