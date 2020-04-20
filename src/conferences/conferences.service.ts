@@ -2,7 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { parseISO } from 'date-fns';
 import { Not, Connection } from 'typeorm';
 
-import { ConferenceRepository, Conference, Room } from '../database';
+import {
+    ConferenceRepository,
+    Conference,
+    Room,
+    RoomRepository,
+} from '../database';
 import {
     CreateConferenceRequest,
     RoomRequest,

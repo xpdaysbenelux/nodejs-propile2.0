@@ -15,13 +15,11 @@ import { ConferencesService } from './conferences.service';
 import { ConferenceRepository } from '../database';
 import { createTestUserSession, createTestConference } from '../_util/testing';
 import { ConferenceNameAlreadyInUse } from './errors';
-import { Connection } from 'typeorm';
 
 describe('ConferencesService', () => {
     let conferencesService: ConferencesService;
 
     const conferencesRepository = mock(ConferenceRepository);
-    const connection = mock(Connection);
 
     const createBody = {
         name: faker.lorem.sentence(),
@@ -46,10 +44,6 @@ describe('ConferencesService', () => {
                 {
                     provide: getCustomRepositoryToken(ConferenceRepository),
                     useValue: instance(conferencesRepository),
-                },
-                {
-                    provide: Connection,
-                    useValue: instance(connection),
                 },
             ],
         }).compile();
