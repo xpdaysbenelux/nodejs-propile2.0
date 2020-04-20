@@ -5,6 +5,7 @@ import {
     objectContaining,
     when,
     verify,
+    anything,
 } from 'ts-mockito';
 import * as faker from 'faker';
 import { TestingModule, Test } from '@nestjs/testing';
@@ -14,7 +15,7 @@ import { parseISO } from 'date-fns';
 import { ConferencesService } from './conferences.service';
 import { ConferenceRepository } from '../database';
 import { createTestUserSession, createTestConference } from '../_util/testing';
-import { ConferenceNameAlreadyInUse } from './errors';
+import { ConferenceNameAlreadyInUse, ConferenceNotFoud } from './errors';
 import { Connection } from 'typeorm';
 
 describe('ConferencesService', () => {
@@ -98,6 +99,32 @@ describe('ConferencesService', () => {
             await expect(
                 conferencesService.createConference(createBody, currentUser),
             ).rejects.toThrowError(ConferenceNameAlreadyInUse);
+        });
+    });
+
+    describe('deleteConference', () => {
+        it("should delete a conference and it's underlaying tree of elements correctly", async () => {
+            const conference = createTestConference({
+                id: faker.random.uuid(),
+            });
+            when(
+                conferencesRepository.findOne(
+                    objectContaining({
+                        where: { id: conference.id },
+                        relations: ['rooms'],
+                    }),
+                ),
+            ).thenResolve(conference);
+
+            await conferencesService.deleteConference(conference.id);
+            verify(conferencesRepository.delete(conference.id)).once();
+        });
+        it('should thow an error when the conference does not exist', async () => {
+            when(conferencesRepository.findOne(anything())).thenResolve(null);
+
+            await expect(
+                conferencesService.deleteConference(faker.random.uuid()),
+            ).rejects.toThrowError(ConferenceNotFoud);
         });
     });
 });
