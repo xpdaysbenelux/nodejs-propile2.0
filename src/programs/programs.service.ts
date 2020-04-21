@@ -87,33 +87,19 @@ export class ProgramsService {
         const programStartTime = parseISO(startTime);
         const programEndTime = parseISO(endTime);
 
-        const existingProgramPromise = Promise.resolve(
-            this.programRepository.findOne({
-                where: { id: programId },
-                relations: ['events'],
-            }),
-        );
-
-        const existingProgramSameTitlePromise = Promise.resolve(
-            this.programRepository.findOne({
-                where: { id: Not(programId), title },
-            }),
-        );
-
-        const conferencePromise = Promise.resolve(
-            this.conferenceRepository.findOne({
-                id: conferenceId,
-            }),
-        );
-
         const [
             existingProgram,
             existingProgramWithSameTitle,
             conference,
         ] = await Promise.all([
-            existingProgramPromise,
-            existingProgramSameTitlePromise,
-            conferencePromise,
+            this.programRepository.findOne({
+                where: { id: programId },
+                relations: ['events'],
+            }),
+            this.programRepository.findOne({
+                where: { id: Not(programId), title },
+            }),
+            this.conferenceRepository.findOne(conferenceId),
         ]);
 
         if (!existingProgram) throw new ProgramNotFoud();
