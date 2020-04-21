@@ -5,6 +5,7 @@ import {
     objectContaining,
     when,
     verify,
+    anything,
 } from 'ts-mockito';
 import * as faker from 'faker';
 import { TestingModule, Test } from '@nestjs/testing';
@@ -22,12 +23,13 @@ import {
     ProgramTitleAlreadyInUse,
     ProgramDateMustBeBetweenConferenceDates,
     StartEndTimeDatesMustBeSameAsProgramDate,
+    ProgramNotFoud,
 } from './errors';
 
 describe('ProgramsService', () => {
     let programsService: ProgramsService;
 
-    const programsRepository = mock(ProgramRepository);
+    const programRepository = mock(ProgramRepository);
     const conferenceRepository = mock(ConferenceRepository);
 
     const createBody = {
@@ -45,7 +47,7 @@ describe('ProgramsService', () => {
                 ProgramsService,
                 {
                     provide: getCustomRepositoryToken(ProgramRepository),
-                    useValue: instance(programsRepository),
+                    useValue: instance(programRepository),
                 },
                 {
                     provide: getCustomRepositoryToken(ConferenceRepository),
@@ -58,14 +60,14 @@ describe('ProgramsService', () => {
     });
 
     afterEach(() => {
-        reset(programsRepository);
+        reset(programRepository);
         reset(conferenceRepository);
     });
 
     describe('CreateProgram', () => {
         it('should create a program with an original title', async () => {
             when(
-                programsRepository.findOne(
+                programRepository.findOne(
                     objectContaining({ title: createBody.title }),
                 ),
             ).thenResolve(null);
@@ -83,7 +85,7 @@ describe('ProgramsService', () => {
             await programsService.createProgram(createBody, currentUser);
 
             verify(
-                programsRepository.save(
+                programRepository.save(
                     objectContaining({
                         title: createBody.title,
                         date: parseISO(createBody.date),
@@ -97,7 +99,7 @@ describe('ProgramsService', () => {
 
         it('should throw an error because a program with this title already exists', async () => {
             when(
-                programsRepository.findOne(
+                programRepository.findOne(
                     objectContaining({ title: createBody.title }),
                 ),
             ).thenResolve(createTestProgram({ title: createBody.title }));
@@ -109,7 +111,7 @@ describe('ProgramsService', () => {
 
         it('should throw an error because the program date is not one of or between the conference dates', async () => {
             when(
-                programsRepository.findOne(
+                programRepository.findOne(
                     objectContaining({ title: createBody.title }),
                 ),
             ).thenResolve(null);
@@ -131,7 +133,7 @@ describe('ProgramsService', () => {
 
         it('should throw an error because the startTime date is not the same as the program date', async () => {
             when(
-                programsRepository.findOne(
+                programRepository.findOne(
                     objectContaining({ title: createBody.title }),
                 ),
             ).thenResolve(null);
@@ -151,6 +153,34 @@ describe('ProgramsService', () => {
             await expect(
                 programsService.createProgram(createBody, currentUser),
             ).rejects.toThrowError(StartEndTimeDatesMustBeSameAsProgramDate);
+        });
+    });
+
+    describe('deleteProgram', () => {
+        it("should delete a program and it's underlaying events correctly", async () => {
+            const program = createTestProgram({
+                id: faker.random.uuid(),
+            });
+
+            when(
+                programRepository.findOne(
+                    objectContaining({
+                        where: { id: program.id },
+                        relations: ['events'],
+                    }),
+                ),
+            ).thenResolve(program);
+
+            await programsService.deleteProgram(program.id);
+            verify(programRepository.delete(program.id)).once();
+        });
+
+        it('should throw an error when the program does not exist', async () => {
+            when(programRepository.findOne(anything())).thenResolve(null);
+
+            await expect(
+                programsService.deleteProgram(faker.random.uuid()),
+            ).rejects.toThrowError(ProgramNotFoud);
         });
     });
 });
