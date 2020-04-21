@@ -11,12 +11,12 @@ import * as faker from 'faker';
 import { TestingModule, Test } from '@nestjs/testing';
 import { getCustomRepositoryToken } from '@nestjs/typeorm';
 import { parseISO } from 'date-fns';
+import { Connection, Not } from 'typeorm';
 
 import { ConferencesService } from './conferences.service';
 import { ConferenceRepository } from '../database';
 import { createTestUserSession, createTestConference } from '../_util/testing';
 import { ConferenceNameAlreadyInUse, ConferenceNotFoud } from './errors';
-import { Connection } from 'typeorm';
 
 describe('ConferencesService', () => {
     let conferencesService: ConferencesService;
@@ -39,6 +39,7 @@ describe('ConferencesService', () => {
             },
         ],
     };
+    const currentUser = createTestUserSession();
 
     beforeAll(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -64,8 +65,6 @@ describe('ConferencesService', () => {
 
     describe('createConference', () => {
         it('should create a conference with an original title', async () => {
-            const currentUser = createTestUserSession();
-
             when(
                 conferenceRepository.findOne(
                     objectContaining({ name: body.name }),
@@ -88,8 +87,6 @@ describe('ConferencesService', () => {
         });
 
         it('should throw an error because a conference with the given name already exists', async () => {
-            const currentUser = createTestUserSession();
-
             when(
                 conferenceRepository.findOne(
                     objectContaining({ name: body.name }),
@@ -103,7 +100,52 @@ describe('ConferencesService', () => {
     });
 
     describe('updateConference', () => {
-        it('should update the user correctly', async () => {});
+        it('should update the conference name correctly', async () => {
+            const conferenceId = faker.random.uuid();
+            const newName = faker.name.title();
+            const existingConference = createTestConference({
+                id: conferenceId,
+            });
+
+            when(
+                conferenceRepository.findOne(
+                    objectContaining({
+                        where: { id: conferenceId },
+                        relations: ['rooms'],
+                    }),
+                ),
+            ).thenResolve(existingConference);
+
+            when(
+                conferenceRepository.findOne(
+                    objectContaining({
+                        where: {
+                            id: Not(conferenceId),
+                            newName,
+                        },
+                    }),
+                ),
+            ).thenResolve(null);
+
+            const updateBody = body;
+            updateBody.name = newName;
+
+            await conferencesService.updateConference(
+                updateBody,
+                conferenceId,
+                currentUser,
+            );
+
+            verify(
+                conferenceRepository.save(
+                    objectContaining({
+                        conferenceId,
+                        newName,
+                        updatedBy: currentUser.email,
+                    }),
+                ),
+            ).once();
+        });
     });
 
     describe('deleteConference', () => {
