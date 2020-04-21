@@ -2,12 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { parseISO, isWithinInterval, isSameDay } from 'date-fns';
 import { Not } from 'typeorm';
 
-import {
-    ProgramRepository,
-    Program,
-    ConferenceRepository,
-    Conference,
-} from '../database';
+import { ProgramRepository, Program, ConferenceRepository } from '../database';
 import { CreateProgramRequest } from './dto/create-program.dto';
 import { IUserSession } from '../_shared/constants';
 import {
