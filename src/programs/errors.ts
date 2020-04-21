@@ -1,4 +1,4 @@
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 
 export class ProgramTitleAlreadyInUse extends BadRequestException {
     constructor() {
@@ -27,7 +27,7 @@ export class StartEndTimeDatesMustBeSameAsProgramDate extends BadRequestExceptio
     }
 }
 
-export class ProgramNotFoud extends BadRequestException {
+export class ProgramNotFoud extends NotFoundException {
     constructor() {
         super('The program was not found.', 'PROGRAM_NOT_FOUND');
     }
