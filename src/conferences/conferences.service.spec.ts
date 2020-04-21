@@ -21,10 +21,10 @@ import { Connection } from 'typeorm';
 describe('ConferencesService', () => {
     let conferencesService: ConferencesService;
 
-    const conferencesRepository = mock(ConferenceRepository);
+    const conferenceRepository = mock(ConferenceRepository);
     const connection = mock(Connection);
 
-    const createBody = {
+    const body = {
         name: faker.lorem.sentence(),
         startDate: faker.date.future().toString(),
         endDate: faker.date.future().toString(),
@@ -46,7 +46,7 @@ describe('ConferencesService', () => {
                 ConferencesService,
                 {
                     provide: getCustomRepositoryToken(ConferenceRepository),
-                    useValue: instance(conferencesRepository),
+                    useValue: instance(conferenceRepository),
                 },
                 {
                     provide: Connection,
@@ -59,7 +59,7 @@ describe('ConferencesService', () => {
     });
 
     afterEach(() => {
-        reset(conferencesRepository);
+        reset(conferenceRepository);
     });
 
     describe('createConference', () => {
@@ -67,20 +67,20 @@ describe('ConferencesService', () => {
             const currentUser = createTestUserSession();
 
             when(
-                conferencesRepository.findOne(
-                    objectContaining({ name: createBody.name }),
+                conferenceRepository.findOne(
+                    objectContaining({ name: body.name }),
                 ),
             ).thenResolve(null);
 
-            await conferencesService.createConference(createBody, currentUser);
+            await conferencesService.createConference(body, currentUser);
 
             verify(
-                conferencesRepository.save(
+                conferenceRepository.save(
                     objectContaining({
-                        name: createBody.name,
-                        startDate: parseISO(createBody.startDate),
-                        endDate: parseISO(createBody.endDate),
-                        rooms: createBody.rooms,
+                        name: body.name,
+                        startDate: parseISO(body.startDate),
+                        endDate: parseISO(body.endDate),
+                        rooms: body.rooms,
                         createdBy: currentUser.email,
                     }),
                 ),
@@ -91,15 +91,19 @@ describe('ConferencesService', () => {
             const currentUser = createTestUserSession();
 
             when(
-                conferencesRepository.findOne(
-                    objectContaining({ name: createBody.name }),
+                conferenceRepository.findOne(
+                    objectContaining({ name: body.name }),
                 ),
-            ).thenResolve(createTestConference({ name: createBody.name }));
+            ).thenResolve(createTestConference({ name: body.name }));
 
             await expect(
-                conferencesService.createConference(createBody, currentUser),
+                conferencesService.createConference(body, currentUser),
             ).rejects.toThrowError(ConferenceNameAlreadyInUse);
         });
+    });
+
+    describe('updateConference', () => {
+        it('should update the user correctly', async () => {});
     });
 
     describe('deleteConference', () => {
@@ -108,7 +112,7 @@ describe('ConferencesService', () => {
                 id: faker.random.uuid(),
             });
             when(
-                conferencesRepository.findOne(
+                conferenceRepository.findOne(
                     objectContaining({
                         where: { id: conference.id },
                         relations: ['rooms'],
@@ -117,10 +121,10 @@ describe('ConferencesService', () => {
             ).thenResolve(conference);
 
             await conferencesService.deleteConference(conference.id);
-            verify(conferencesRepository.delete(conference.id)).once();
+            verify(conferenceRepository.delete(conference.id)).once();
         });
         it('should thow an error when the conference does not exist', async () => {
-            when(conferencesRepository.findOne(anything())).thenResolve(null);
+            when(conferenceRepository.findOne(anything())).thenResolve(null);
 
             await expect(
                 conferencesService.deleteConference(faker.random.uuid()),
