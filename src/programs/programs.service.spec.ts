@@ -66,7 +66,7 @@ describe('ProgramsService', () => {
         reset(conferenceRepository);
     });
 
-    describe('CreateProgram', () => {
+    describe('createProgram', () => {
         it('should create a program with an original title', async () => {
             when(
                 programRepository.findOne(
@@ -150,16 +150,22 @@ describe('ProgramsService', () => {
                 }),
             );
 
-            body.startTime = '2020-04-03T08:00:00';
+            const createBody = {
+                title: body.title,
+                date: body.date,
+                startTime: '2020-04-03T08:00:00',
+                endTime: body.endTime,
+                conferenceId: body.conferenceId,
+            };
 
             await expect(
-                programsService.createProgram(body, currentUser),
+                programsService.createProgram(createBody, currentUser),
             ).rejects.toThrowError(StartEndTimeDatesMustBeSameAsProgramDate);
         });
     });
 
     describe('updateProgram', () => {
-        it.skip('should update the program correctly #1', async () => {
+        it('should update the program correctly #1', async () => {
             const programId = faker.random.uuid();
             const conference = createFullTestConference({
                 id: body.conferenceId,
@@ -215,7 +221,7 @@ describe('ProgramsService', () => {
             ).once();
         });
 
-        it.skip('should update the program correctly #2', async () => {
+        it('should update the program correctly #2', async () => {
             const programId = faker.random.uuid();
             const conference = createFullTestConference({
                 id: body.conferenceId,
@@ -225,9 +231,9 @@ describe('ProgramsService', () => {
             const exisitingProgram = createTestProgram({
                 id: programId,
                 conference,
-                date: '2020-04-04T10:00:00',
-                startTime: '2020-04-04T10:00:00',
-                endTime: '2020-04-04T19:00:00',
+                date: '2020-04-03T02:00:00',
+                startTime: '2020-04-03T10:00:00',
+                endTime: '2020-04-03T19:00:00',
             });
 
             when(
@@ -281,10 +287,18 @@ describe('ProgramsService', () => {
             const exisitingProgram = createTestProgram({
                 id: programId,
                 conference,
-                date: '2020-04-10T02:00:00',
-                startTime: '2020-04-10T10:00:00',
-                endTime: '2020-04-10T19:00:00',
+                date: '2020-04-04T02:00:00',
+                startTime: '2020-04-04T10:00:00',
+                endTime: '2020-04-04T19:00:00',
             });
+
+            const updateBody = {
+                title: body.title,
+                date: '2020-04-10T02:00:00',
+                startTime: '2020-04-10T02:00:00',
+                endTime: '2020-04-10T02:00:00',
+                conferenceId: conference.id,
+            };
 
             when(
                 programRepository.findOne(
@@ -315,7 +329,11 @@ describe('ProgramsService', () => {
             ).thenResolve(conference);
 
             await expect(
-                programsService.createProgram(body, currentUser),
+                programsService.updateProgram(
+                    updateBody,
+                    programId,
+                    currentUser,
+                ),
             ).rejects.toThrowError(ProgramDateMustBeBetweenConferenceDates);
         });
 
