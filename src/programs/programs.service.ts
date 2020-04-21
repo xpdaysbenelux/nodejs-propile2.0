@@ -1,7 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { parseISO, isWithinInterval, isSameDay } from 'date-fns';
+import { Not } from 'typeorm';
 
-import { ProgramRepository, Program, ConferenceRepository } from '../database';
+import {
+    ProgramRepository,
+    Program,
+    ConferenceRepository,
+    Conference,
+} from '../database';
 import { CreateProgramRequest } from './dto/create-program.dto';
 import { IUserSession } from '../_shared/constants';
 import {
@@ -12,7 +18,6 @@ import {
 } from './errors';
 import { ConferenceNotFoud } from '../conferences/errors';
 import { UpdateProgramRequest } from './dto';
-import { Not } from 'typeorm';
 
 @Injectable()
 export class ProgramsService {
@@ -87,29 +92,38 @@ export class ProgramsService {
         const programStartTime = parseISO(startTime);
         const programEndTime = parseISO(endTime);
 
-        const existingProgram = await this.programRepository.findOne({
-            where: { id: programId },
-            relations: ['events'],
-        });
-        if (!existingProgram) {
-            throw new ProgramNotFoud();
-        }
-
-        const existingProgramWithSameTitle = await this.programRepository.findOne(
-            {
-                where: { id: Not(programId), title },
-            },
+        const existingProgramPromise = Promise.resolve(
+            this.programRepository.findOne({
+                where: { id: programId },
+                relations: ['events'],
+            }),
         );
-        if (existingProgramWithSameTitle) {
-            throw new ProgramTitleAlreadyInUse();
-        }
 
-        const conference = await this.conferenceRepository.findOne({
-            id: conferenceId,
-        });
-        if (!conference) {
-            throw new ConferenceNotFoud();
-        }
+        const existingProgramSameTitlePromise = Promise.resolve(
+            this.programRepository.findOne({
+                where: { id: Not(programId), title },
+            }),
+        );
+
+        const conferencePromise = Promise.resolve(
+            this.conferenceRepository.findOne({
+                id: conferenceId,
+            }),
+        );
+
+        const [
+            existingProgram,
+            existingProgramWithSameTitle,
+            conference,
+        ] = await Promise.all([
+            existingProgramPromise,
+            existingProgramSameTitlePromise,
+            conferencePromise,
+        ]);
+
+        if (!existingProgram) throw new ProgramNotFoud();
+        if (existingProgramWithSameTitle) throw new ProgramTitleAlreadyInUse();
+        if (!conference) throw new ConferenceNotFoud();
 
         // Check if the program date is one of or between the conference dates
         if (
