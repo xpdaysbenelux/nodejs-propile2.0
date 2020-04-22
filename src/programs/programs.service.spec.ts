@@ -200,13 +200,9 @@ describe('ProgramsService', () => {
                 ),
             ).thenResolve(null);
 
-            when(
-                conferenceRepository.findOne(
-                    objectContaining({
-                        id: conference.id,
-                    }),
-                ),
-            ).thenResolve(conference);
+            when(conferenceRepository.findOne(conference.id)).thenResolve(
+                conference,
+            );
 
             await programsService.updateProgram(body, programId, currentUser);
             verify(
@@ -256,13 +252,9 @@ describe('ProgramsService', () => {
                 ),
             ).thenResolve(null);
 
-            when(
-                conferenceRepository.findOne(
-                    objectContaining({
-                        id: conference.id,
-                    }),
-                ),
-            ).thenResolve(conference);
+            when(conferenceRepository.findOne(conference.id)).thenResolve(
+                conference,
+            );
 
             await programsService.updateProgram(body, programId, currentUser);
             verify(
@@ -291,6 +283,7 @@ describe('ProgramsService', () => {
                 startTime: '2020-04-04T10:00:00',
                 endTime: '2020-04-04T19:00:00',
             });
+            console.log('error', exisitingProgram);
 
             const updateBody = {
                 title: body.title,
@@ -320,13 +313,9 @@ describe('ProgramsService', () => {
                 ),
             ).thenResolve(null);
 
-            when(
-                conferenceRepository.findOne(
-                    objectContaining({
-                        id: conference.id,
-                    }),
-                ),
-            ).thenResolve(conference);
+            when(conferenceRepository.findOne(conference.id)).thenResolve(
+                conference,
+            );
 
             await expect(
                 programsService.updateProgram(
@@ -337,7 +326,7 @@ describe('ProgramsService', () => {
             ).rejects.toThrowError(ProgramDateMustBeBetweenConferenceDates);
         });
 
-        it('should throw an error when the conference is not found', async () => {
+        it('should throw an error when the program is not found', async () => {
             const programId = faker.random.uuid();
 
             when(
@@ -417,13 +406,9 @@ describe('ProgramsService', () => {
                 ),
             ).thenResolve(null);
 
-            when(
-                conferenceRepository.findOne(
-                    objectContaining({
-                        id: body.conferenceId,
-                    }),
-                ),
-            ).thenResolve(null);
+            when(conferenceRepository.findOne(body.conferenceId)).thenResolve(
+                null,
+            );
 
             await expect(
                 programsService.updateProgram(body, programId, currentUser),
