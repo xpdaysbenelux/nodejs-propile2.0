@@ -131,7 +131,7 @@ export class SessionsService {
         }
 
         if (this.checkAdminRightsOnSession(user)) {
-            existingSession.sessionState = sessionState || null;
+            existingSession.sessionState = sessionState;
 
             existingSession.firstPresenter = await this.userRepository.findOne({
                 email: emailFirstPresenter,
@@ -142,6 +142,7 @@ export class SessionsService {
                     email: emailSecondPresenter,
                 })) || null;
         }
+        console.log(existingSession);
 
         const personas = personaIds
             ? await this.personaRepository.find({ id: In(personaIds) })
