@@ -35,27 +35,18 @@ export class SessionsController {
         private readonly sessionQueries: SessionsQueries,
     ) {}
 
-    /**
-     * Gets the sessions from a specific user.
-     * @param userId
-     */
     @RequiredPermissions({ sessions: { view: true } })
     @UseGuards(RequiredPermissionsGuard)
-    @Get(':userId')
-    getSessionsOfUser(
-        @Param() params: UserIdParam,
-    ): Promise<GetSessionsResponse> {
-        return this.sessionQueries.getSessionsByUser(params.userId);
+    @Get(':sessionId')
+    getSession(@Param() params: SessionIdParam): Promise<SessionResponse> {
+        return this.sessionQueries.getSession(params.sessionId);
     }
 
-    @RequiredPermissions({ sessions: { view: true, edit: true } })
+    @RequiredPermissions({ sessions: { view: true } })
     @UseGuards(RequiredPermissionsGuard)
-    @Get(':sessionId')
-    getSessionById(
-        @Param() params: SessionIdParam,
-        @UserSession() session: IUserSession,
-    ): Promise<SessionResponse> {
-        return this.sessionQueries.getSession(params.sessionId);
+    @Get()
+    getSessions(): Promise<GetSessionsResponse> {
+        return this.sessionQueries.getSessions();
     }
 
     @Post()

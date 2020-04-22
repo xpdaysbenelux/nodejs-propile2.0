@@ -1,9 +1,11 @@
+import { Injectable } from '@nestjs/common';
+
 import { SessionRepository, Session } from '../database';
 import { SessionResponse } from './dto';
-import { Injectable } from '@nestjs/common';
 import { GetSessionsResponse } from './dto/get-sessions.dto';
+import { SelectQueryBuilder } from 'typeorm';
 
-const sessionDetailFields = [
+const sessionFields = [
     'session.id',
     'session.createdAt',
     'session.title',
@@ -24,7 +26,9 @@ const sessionDetailFields = [
     'session.outline',
     'session.materialDescription',
     'session.materialUrl',
+    'firstPresenter.id',
     'firstPresenter.email',
+    'secondPresenter.id',
     'secondPresenter.email',
 ];
 
@@ -32,17 +36,21 @@ const sessionDetailFields = [
 export class SessionsQueries {
     constructor(private readonly sessionRepository: SessionRepository) {}
 
-    async getSessionsByUser(userId: string): Promise<GetSessionsResponse> {
-        const [sessions, totalCount] = await this.sessionRepository
+    async getSession(sessionId: string): Promise<SessionResponse> {
+        return this.sessionRepository
             .createQueryBuilder('session')
-            .select(sessionDetailFields)
-            .where(
-                'firstPresenter.id = :userId OR secondPresenter.id = :userId',
-                { userId },
-            )
+            .select(sessionFields)
+            .where('session.id = :sessionId', { sessionId })
             .innerJoin('session.firstPresenter', 'firstPresenter')
             .leftJoin('session.secondPresenter', 'secondPresenter')
-            .getManyAndCount();
+            .getOne();
+        // leftJoin voor intendedAudience
+    }
+
+    async getSessions(): Promise<GetSessionsResponse> {
+        const [sessions, totalCount] = await this.selectSessionColumns(
+            this.sessionRepository.createQueryBuilder('session'),
+        ).getManyAndCount();
 
         return {
             meta: {
@@ -54,14 +62,12 @@ export class SessionsQueries {
         };
     }
 
-    async getSession(sessionId: string): Promise<SessionResponse> {
-        return this.sessionRepository
-            .createQueryBuilder('session')
-            .select(sessionDetailFields)
-            .where('session.id = :sessionId', { sessionId })
+    private selectSessionColumns(
+        queryBuilder: SelectQueryBuilder<Session>,
+    ): SelectQueryBuilder<Session> {
+        return queryBuilder
+            .select(sessionFields)
             .innerJoin('session.firstPresenter', 'firstPresenter')
-            .leftJoin('session.secondPresenter', 'secondPresenter')
-            .getOne();
-        // leftJoin voor intendedAudience
+            .leftJoin('session.secondPresenter', 'secondPresenter');
     }
 }
