@@ -8,7 +8,6 @@ import {
     GetProgramsRequestQuery,
     ProgramsSortColumns,
 } from './dto/get-programs.dto';
-import { ProgramResponse } from './dto/get-program.dto';
 
 describe('ProgramsQueries', () => {
     let programRepository: ProgramRepository;
@@ -71,13 +70,13 @@ describe('ProgramsQueries', () => {
                     meta: result.meta,
                 }).toMatchSnapshot();
             });
+        });
 
-            it('should return an empty list if no programs are found', async () => {
-                const result = await programsQueries.getPrograms({
-                    search: 'jibbrishsearch',
-                });
-                expect(result).toMatchSnapshot();
+        it('should return an empty list if no programs are found', async () => {
+            const result = await programsQueries.getPrograms({
+                search: 'jibbrishsearch',
             });
+            expect(result).toMatchSnapshot();
         });
     });
 });

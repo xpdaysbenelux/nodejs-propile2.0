@@ -98,36 +98,3 @@ Object {
   },
 }
 `;
-
-exports[`ProgramsQueries getPrograms should return an empty list if no programs are found 2`] = `
-Object {
-  "data": Array [],
-  "meta": Object {
-    "count": 0,
-    "skip": 0,
-    "totalCount": 0,
-  },
-}
-`;
-
-exports[`ProgramsQueries getPrograms should return an empty list if no programs are found 3`] = `
-Object {
-  "data": Array [],
-  "meta": Object {
-    "count": 0,
-    "skip": 0,
-    "totalCount": 0,
-  },
-}
-`;
-
-exports[`ProgramsQueries getPrograms should return an empty list if no programs are found 4`] = `
-Object {
-  "data": Array [],
-  "meta": Object {
-    "count": 0,
-    "skip": 0,
-    "totalCount": 0,
-  },
-}
-`;
