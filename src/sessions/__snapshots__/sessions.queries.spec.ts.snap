@@ -24,6 +24,7 @@ Session {
   "secondPresenter": User {
     "email": "user1@propile.com",
   },
+  "sessionState": "DRAFT",
   "shortDescription": "Short desc, leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.",
   "subTitle": "My experience about...",
   "title": "How to...",
@@ -57,6 +58,7 @@ Object {
       "secondPresenter": User {
         "email": "user1@propile.com",
       },
+      "sessionState": "DRAFT",
       "shortDescription": "Short desc, leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.",
       "subTitle": "My experience about...",
       "title": "How to...",
@@ -83,6 +85,7 @@ Object {
       "outline": "",
       "roomSetup": "",
       "secondPresenter": null,
+      "sessionState": "DRAFT",
       "shortDescription": null,
       "subTitle": "How I...",
       "title": "Avoid the Top 10 mistakes made by...",
