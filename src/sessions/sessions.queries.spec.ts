@@ -38,26 +38,10 @@ describe('SessionsQueries', () => {
         });
     });
 
-    describe('getSessionsByUser', () => {
-        it('should return a list of sessions from the requested user', async () => {
-            const list = await sessionsQueries.getSessionsByUser(
-                '45c2c554-b06a-4209-aba8-b097cb5f8566',
-            );
+    describe('getSessions', () => {
+        it('should return a paged list of sessions', async () => {
+            const list = await sessionsQueries.getSessions();
             expect(list).toMatchSnapshot();
-        });
-
-        it('should return an empty list if no sessions for the requested user are found', async () => {
-            const list = await sessionsQueries.getSessionsByUser(
-                'c356fce8-9f95-4c69-9e71-8f4d74f49b8f',
-            );
-            expect(list).toMatchSnapshot();
-        });
-
-        it('should return an empty list if the requested user does not exist', async () => {
-            const result = await sessionsQueries.getSessionsByUser(
-                faker.random.uuid(),
-            );
-            expect(result).toMatchSnapshot();
         });
     });
 });

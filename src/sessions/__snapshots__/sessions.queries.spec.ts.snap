@@ -10,6 +10,7 @@ Session {
   "expierenceLevel": "NOVICE",
   "firstPresenter": User {
     "email": "user2@propile.com",
+    "id": "45c2c554-b06a-4209-aba8-b097cb5f8566",
   },
   "goal": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
   "id": "8c87028d-31f6-414b-b02d-e7431b6a7243",
@@ -23,6 +24,7 @@ Session {
   "roomSetup": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
   "secondPresenter": User {
     "email": "user1@propile.com",
+    "id": "49affd08-f461-4e80-899f-7612e971ff12",
   },
   "shortDescription": "Short desc, leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.",
   "subTitle": "My experience about...",
@@ -33,7 +35,7 @@ Session {
 }
 `;
 
-exports[`SessionsQueries getSessionsByUser should return a list of sessions from the requested user 1`] = `
+exports[`SessionsQueries getSessions should return a paged list of sessions 1`] = `
 Object {
   "data": Array [
     Session {
@@ -43,6 +45,7 @@ Object {
       "expierenceLevel": "NOVICE",
       "firstPresenter": User {
         "email": "user2@propile.com",
+        "id": "45c2c554-b06a-4209-aba8-b097cb5f8566",
       },
       "goal": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
       "id": "8c87028d-31f6-414b-b02d-e7431b6a7243",
@@ -56,6 +59,7 @@ Object {
       "roomSetup": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
       "secondPresenter": User {
         "email": "user1@propile.com",
+        "id": "49affd08-f461-4e80-899f-7612e971ff12",
       },
       "shortDescription": "Short desc, leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.",
       "subTitle": "My experience about...",
@@ -71,6 +75,7 @@ Object {
       "expierenceLevel": "NOVICE",
       "firstPresenter": User {
         "email": "user2@propile.com",
+        "id": "45c2c554-b06a-4209-aba8-b097cb5f8566",
       },
       "goal": null,
       "id": "05909211-9301-4e65-8b1e-65c00b672ee8",
@@ -90,33 +95,38 @@ Object {
       "type": "HANDS_ON",
       "xpFactor": 5,
     },
+    Session {
+      "createdAt": 2020-01-01T08:21:59.730Z,
+      "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
+      "duration": null,
+      "expierenceLevel": "NOVICE",
+      "firstPresenter": User {
+        "email": "development@icapps.com",
+        "id": "c4cb4582-1e97-4e3e-9d49-c744c8c1a229",
+      },
+      "goal": null,
+      "id": "9a72df45-46cc-45f3-ad63-548df4a385c5",
+      "laptopsRequired": false,
+      "materialDescription": null,
+      "materialUrl": null,
+      "maxParticipants": 50,
+      "neededMaterials": null,
+      "otherLimitations": null,
+      "outline": null,
+      "roomSetup": null,
+      "secondPresenter": null,
+      "shortDescription": null,
+      "subTitle": null,
+      "title": "Don't Be Fooled By...",
+      "topic": null,
+      "type": null,
+      "xpFactor": 0,
+    },
   ],
   "meta": Object {
-    "count": 2,
+    "count": 3,
     "skip": null,
-    "totalCount": 2,
-  },
-}
-`;
-
-exports[`SessionsQueries getSessionsByUser should return an empty list if no sessions for the requested user are found 1`] = `
-Object {
-  "data": Array [],
-  "meta": Object {
-    "count": 0,
-    "skip": null,
-    "totalCount": 0,
-  },
-}
-`;
-
-exports[`SessionsQueries getSessionsByUser should return an empty list if the requested user does not exist 1`] = `
-Object {
-  "data": Array [],
-  "meta": Object {
-    "count": 0,
-    "skip": null,
-    "totalCount": 0,
+    "totalCount": 3,
   },
 }
 `;
