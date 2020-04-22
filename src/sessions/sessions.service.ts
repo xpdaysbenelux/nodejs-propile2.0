@@ -142,7 +142,6 @@ export class SessionsService {
                     email: emailSecondPresenter,
                 })) || null;
         }
-        console.log(existingSession);
 
         const personas = personaIds
             ? await this.personaRepository.find({ id: In(personaIds) })
