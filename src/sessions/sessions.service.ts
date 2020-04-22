@@ -41,7 +41,7 @@ export class SessionsService {
     async createSession(
         body: CreateSessionRequest,
         origin: string,
-    ): Promise<void> {
+    ): Promise<string> {
         const {
             title,
             subTitle,
@@ -80,6 +80,7 @@ export class SessionsService {
         await this.sessionRepository.save(session);
 
         this.sendSessionCreatedMails(body, presenters, origin);
+        return session.id;
     }
 
     async updateSession(

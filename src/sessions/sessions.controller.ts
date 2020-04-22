@@ -53,8 +53,12 @@ export class SessionsController {
     async createSession(
         @Body() body: CreateSessionRequest,
         @Origin() origin: string,
-    ): Promise<void> {
-        await this.sessionService.createSession(body, origin);
+    ): Promise<SessionResponse> {
+        const newSessionId = await this.sessionService.createSession(
+            body,
+            origin,
+        );
+        return this.sessionQueries.getSession(newSessionId);
     }
 
     @RequiredPermissions({ sessions: { edit: true } })
@@ -64,12 +68,12 @@ export class SessionsController {
         @Body() body: UpdateSessionRequest,
         @Param() params: SessionIdParam,
         @UserSession() userSession: IUserSession,
-    ): Promise<string> {
+    ): Promise<SessionResponse> {
         const sessionId = await this.sessionService.updateSession(
             body,
             params.sessionId,
             userSession,
         );
-        return sessionId;
+        return this.sessionQueries.getSession(sessionId);
     }
 }

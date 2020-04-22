@@ -10,8 +10,8 @@ import {
 export class SessionResponse extends BaseEntityResponse {
     readonly title: string;
     readonly subTitle?: string;
-    readonly firstPresenter: SessionResponsePresenter;
-    readonly secondPresenter?: SessionResponsePresenter;
+    readonly firstPresenter: SessionPresenterResponse;
+    readonly secondPresenter?: SessionPresenterResponse;
     readonly xpFactor?: number;
     readonly description: string;
     readonly sessionState?: SessionState;
@@ -23,7 +23,7 @@ export class SessionResponse extends BaseEntityResponse {
     readonly duration?: SessionDuration;
     readonly laptopsRequired?: boolean;
     readonly otherLimitations?: string;
-    readonly intendedAudience?: SessionResponsePersona[];
+    readonly intendedAudience?: SessionPersonaResponse[];
     readonly roomSetup?: string;
     readonly neededMaterials?: string;
     readonly expierenceLevel?: SessionExpierenceLevel;
@@ -32,13 +32,14 @@ export class SessionResponse extends BaseEntityResponse {
     readonly materialUrl?: string;
 }
 
-class SessionResponsePersona {
+class SessionPersonaResponse {
     readonly id: string;
     readonly name: string;
     readonly description: string;
     readonly imageUrl: string;
 }
 
-class SessionResponsePresenter {
+class SessionPresenterResponse {
+    readonly id: string;
     readonly email: string;
 }
