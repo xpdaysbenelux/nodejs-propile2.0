@@ -45,7 +45,7 @@ export class SessionsQueries {
             .innerJoin('session.firstPresenter', 'firstPresenter')
             .leftJoin('session.secondPresenter', 'secondPresenter')
             .getOne();
-        // leftJoin voor intendedAudience
+        // TODO leftJoin voor intendedAudience
     }
 
     async getSessions(): Promise<GetSessionsResponse> {
