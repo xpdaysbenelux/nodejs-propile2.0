@@ -13,6 +13,7 @@ const sessionFields = [
     'session.xpFactor',
     'session.description',
     'session.shortDescription',
+    'session.sessionState',
     'session.goal',
     'session.type',
     'session.topic',

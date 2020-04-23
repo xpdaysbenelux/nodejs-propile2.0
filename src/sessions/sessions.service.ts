@@ -132,7 +132,7 @@ export class SessionsService {
         }
 
         if (this.checkAdminRightsOnSession(user)) {
-            existingSession.sessionState = sessionState || null;
+            existingSession.sessionState = sessionState;
 
             existingSession.firstPresenter = await this.userRepository.findOne({
                 email: emailFirstPresenter,
