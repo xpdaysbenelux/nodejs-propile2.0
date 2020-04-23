@@ -118,6 +118,7 @@ Object {
       "outline": null,
       "roomSetup": null,
       "secondPresenter": null,
+      "sessionState": "DRAFT",
       "shortDescription": null,
       "subTitle": null,
       "title": "Don't Be Fooled By...",
