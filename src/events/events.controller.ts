@@ -1,0 +1,40 @@
+import { Body, UseGuards, Controller, Post, Get, Param } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+
+import { EventsService } from './events.service';
+import { EventsQueries } from './events.queries';
+import { UserSession, RequiredPermissions } from '../_shared/decorators';
+import { IUserSession } from '../_shared/constants';
+import {
+    AuthenticatedGuard,
+    RequiredPermissionsGuard,
+} from '../_shared/guards';
+import { CreateEventRequest, EventResponse, EventIdParam } from './dto';
+
+@UseGuards(AuthenticatedGuard)
+@Controller('/programs/:programId/events')
+@ApiTags('events')
+export class EventController {
+    constructor(
+        private readonly eventsService: EventsService,
+        private readonly eventsQueries: EventsQueries,
+    ) {}
+
+    @RequiredPermissions({ programs: { view: true, edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
+    @Get(':eventId')
+    getEvent(@Param() params: EventIdParam): Promise<EventResponse> {
+        return this.eventsQueries.getEvent(params.eventId);
+    }
+
+    @RequiredPermissions({ programs: { edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
+    @Post()
+    async createEvent(
+        @Body() body: CreateEventRequest,
+        @UserSession() session: IUserSession,
+    ): Promise<EventResponse> {
+        const eventId = await this.eventsService.createEvent(body, session);
+        return this.eventsQueries.getEvent(eventId);
+    }
+}
