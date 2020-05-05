@@ -1,7 +1,15 @@
-import { Entity, Column, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
+import {
+    Entity,
+    Column,
+    ManyToOne,
+    ManyToMany,
+    JoinTable,
+    OneToMany,
+} from 'typeorm';
 
 import { BaseEntity } from './base.entity';
 import { User } from './user.entity';
+import { Event } from './event.entity';
 import { Persona } from './persona.entity';
 import {
     SessionState,
@@ -82,4 +90,10 @@ export class Session extends BaseEntity {
 
     @Column({ nullable: true, type: 'text' })
     materialUrl?: string;
+
+    @OneToMany(
+        () => Event,
+        event => event.session,
+    )
+    events: Event[];
 }

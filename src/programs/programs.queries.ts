@@ -19,11 +19,6 @@ const programFields = [
     'program.endTime',
     'conference.id',
     'conference.name',
-    'event.id',
-    'event.spanRow',
-    'event.startTime',
-    'event.endTime',
-    'event.room',
 ];
 
 @Injectable()
@@ -36,7 +31,6 @@ export class ProgramsQueries {
             .select(programFields)
             .where('program.id = :programId', { programId })
             .innerJoin('program.conference', 'conference')
-            .leftJoin('program.events', 'event')
             .getOne();
     }
 
@@ -79,7 +73,6 @@ export class ProgramsQueries {
     ): SelectQueryBuilder<Program> {
         return queryBuilder
             .select(programFields)
-            .innerJoin('program.conference', 'conference')
-            .leftJoin('program.events', 'event');
+            .innerJoin('program.conference', 'conference');
     }
 }

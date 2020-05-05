@@ -3,7 +3,6 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { BaseEntityResponse } from '../../_shared/dto';
 import { ConferenceResponse } from '../../conferences/dto';
-import { RoomResponse } from '../../rooms/dto/get-room.dto';
 
 export class ProgramResponse extends BaseEntityResponse {
     readonly title: string;
@@ -11,15 +10,6 @@ export class ProgramResponse extends BaseEntityResponse {
     readonly startTime: Date;
     readonly endTime: Date;
     readonly conference: ConferenceResponse;
-    readonly events?: EventResponse[];
-}
-
-class EventResponse {
-    readonly title: string;
-    readonly spanRow: boolean;
-    readonly startTime: Date;
-    readonly endTime: Date;
-    readonly room: RoomResponse;
 }
 
 export class ProgramIdParam {

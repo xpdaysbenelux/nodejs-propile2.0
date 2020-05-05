@@ -8,6 +8,7 @@ import {
     ProgramRepository,
     PersonaRepository,
     ConferenceRepository,
+    EventRepository,
     RoomRepository,
 } from './repositories';
 import {
@@ -43,6 +44,7 @@ import { Config } from '../config';
             SessionRepository,
             ConferenceRepository,
             ProgramRepository,
+            EventRepository,
             PersonaRepository,
             RoomRepository,
         ]),
