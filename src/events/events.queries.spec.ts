@@ -28,7 +28,7 @@ describe('EventsQueries', () => {
                 '6ee1e9e0-1b79-49dd-b326-09e992430c31',
             );
 
-            const { startTime, endTime, ...withoutDates } = result;
+            const { startTime, endTime, program, ...withoutDates } = result;
             expect(withoutDates).toMatchSnapshot();
         });
 
