@@ -28,7 +28,6 @@ export class EventsService {
         body: CreateEventRequest,
         user: IUserSession,
     ): Promise<string> {
-        console.log('service', body);
         const {
             spanRow,
             programId,
@@ -75,7 +74,7 @@ export class EventsService {
         if (title) event.title = title;
         else event.title = null;
 
-        if (isAfter(eventEndTime, eventStartTime)) {
+        if (!isAfter(eventEndTime, eventStartTime)) {
             throw new EndTimeMustBeLaterThanStartTime();
         }
         event.startTime = eventStartTime;
