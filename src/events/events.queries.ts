@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { SelectQueryBuilder } from 'typeorm';
 
 import { EventRepository, Event } from '../database';
 import { EventResponse } from './dto';
@@ -37,5 +38,33 @@ export class EventsQueries {
             .leftJoin('event.room', 'room')
             .leftJoin('event.session', 'session')
             .getOne();
+    }
+
+    async getEvents(programId: string): Promise<EventResponse[]> {
+        /* const events = this.eventRepository
+            .createQueryBuilder('event')
+            .select(eventFields)
+            .where('event.program.id = :programId', { programId })
+            .innerJoin('event.program', 'program')
+            .leftJoin('event.room', 'room')
+            .leftJoin('event.session', 'session')
+            .getManyAndCount(); */
+
+        const [events] = await this.selectEventsColumns(
+            this.eventRepository.createQueryBuilder('event'),
+        )
+            .where('event.program.id = :programId', { programId })
+            .getManyAndCount();
+        return events;
+    }
+
+    private selectEventsColumns(
+        queryBuilder: SelectQueryBuilder<Event>,
+    ): SelectQueryBuilder<Event> {
+        return queryBuilder
+            .select(eventFields)
+            .innerJoin('event.program', 'program')
+            .leftJoin('event.room', 'room')
+            .leftJoin('event.session', 'session');
     }
 }

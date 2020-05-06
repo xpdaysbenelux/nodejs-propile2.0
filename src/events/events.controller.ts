@@ -10,6 +10,7 @@ import {
     RequiredPermissionsGuard,
 } from '../_shared/guards';
 import { CreateEventRequest, EventResponse, EventIdParam } from './dto';
+import { ProgramIdParam } from '../programs/dto';
 
 @UseGuards(AuthenticatedGuard)
 @Controller('/programs/:programId/events')
@@ -25,6 +26,14 @@ export class EventController {
     @Get(':eventId')
     getEvent(@Param() params: EventIdParam): Promise<EventResponse> {
         return this.eventsQueries.getEvent(params.eventId);
+    }
+
+    @RequiredPermissions({ programs: { view: true, edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
+    @Get()
+    getEvents(@Param() params: ProgramIdParam): Promise<EventResponse[]> {
+        console.log('events', params.programId);
+        return this.eventsQueries.getEvents(params.programId);
     }
 
     @RequiredPermissions({ programs: { edit: true } })
