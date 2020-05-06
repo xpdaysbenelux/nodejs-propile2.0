@@ -28,12 +28,33 @@ describe('EventsQueries', () => {
                 '6ee1e9e0-1b79-49dd-b326-09e992430c31',
             );
 
-            const { startTime, endTime, ...withoutDates } = result;
+            const { startTime, endTime, program, ...withoutDates } = result;
             expect(withoutDates).toMatchSnapshot();
         });
 
         it('should return nothing if the requested event does not exist', async () => {
             const result = await eventsQueries.getEvent(faker.random.uuid());
+
+            expect(result).toMatchSnapshot();
+        });
+    });
+
+    describe('getEvents', () => {
+        it('should return the requested events by program id', async () => {
+            const result = await eventsQueries.getEvents(
+                '3185e221-73ca-4b5a-93a9-1cc2d0b5df76',
+            );
+
+            const withoutDatesList = result.map(entry => {
+                const { startTime, endTime, program, ...withoutDates } = entry;
+                return withoutDates;
+            });
+
+            expect(withoutDatesList).toMatchSnapshot();
+        });
+
+        it('should return nothing if there are no events found for the given program id', async () => {
+            const result = await eventsQueries.getEvents(faker.random.uuid());
 
             expect(result).toMatchSnapshot();
         });

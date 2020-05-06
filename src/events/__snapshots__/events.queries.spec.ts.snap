@@ -6,16 +6,41 @@ exports[`EventsQueries getEvent should return the requested event correctly 1`] 
 Object {
   "comment": "Lorem ipsum dolor sit amet",
   "id": "6ee1e9e0-1b79-49dd-b326-09e992430c31",
-  "program": Program {
-    "date": 2020-04-02T00:00:00.000Z,
-    "endTime": 2020-04-02T16:00:00.000Z,
-    "id": "3185e221-73ca-4b5a-93a9-1cc2d0b5df76",
-    "startTime": 2020-04-02T04:00:00.000Z,
-    "title": "Conference planning day 1",
-  },
   "room": null,
   "session": null,
   "spanRow": true,
   "title": "LUNCH",
 }
+`;
+
+exports[`EventsQueries getEvents should return nothing if there are no events found for the given program id 1`] = `Array []`;
+
+exports[`EventsQueries getEvents should return the requested events by program id 1`] = `
+Array [
+  Object {
+    "comment": null,
+    "id": "4a63356b-3ca6-40c6-84ff-2b30360baf08",
+    "room": Room {
+      "id": "ce63d11d-c51f-4320-a997-fb31b42a6e08",
+      "maxParticipants": 50,
+      "name": "Room 2",
+    },
+    "session": Session {
+      "duration": "30",
+      "id": "8c87028d-31f6-414b-b02d-e7431b6a7243",
+      "maxParticipants": 25,
+      "title": "How to...",
+    },
+    "spanRow": false,
+    "title": null,
+  },
+  Object {
+    "comment": "Lorem ipsum dolor sit amet",
+    "id": "6ee1e9e0-1b79-49dd-b326-09e992430c31",
+    "room": null,
+    "session": null,
+    "spanRow": true,
+    "title": "LUNCH",
+  },
+]
 `;
