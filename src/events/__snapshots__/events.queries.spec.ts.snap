@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventsQueries getEvent should return nothing if the requested event does not exist 1`] = `undefined`;
+
+exports[`EventsQueries getEvent should return the requested event correctly 1`] = `
+Object {
+  "comment": "Lorem ipsum dolor sit amet",
+  "id": "6ee1e9e0-1b79-49dd-b326-09e992430c31",
+  "program": Program {
+    "date": 2020-04-02T00:00:00.000Z,
+    "endTime": 2020-04-02T16:00:00.000Z,
+    "id": "3185e221-73ca-4b5a-93a9-1cc2d0b5df76",
+    "startTime": 2020-04-02T04:00:00.000Z,
+    "title": "Conference planning day 1",
+  },
+  "room": null,
+  "session": null,
+  "spanRow": true,
+  "title": "LUNCH",
+}
+`;

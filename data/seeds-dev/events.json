@@ -1,0 +1,28 @@
+[
+    {
+        "id": "6ee1e9e0-1b79-49dd-b326-09e992430c31",
+        "createdAt": "2020-01-01T08:20:30.730Z",
+        "createdBy": "development@icapps.com",
+        "spanRow": true,
+        "program": { "id": "3185e221-73ca-4b5a-93a9-1cc2d0b5df76" },
+        "title": "LUNCH",
+        "comment": "Lorem ipsum dolor sit amet",
+        "session": null,
+        "room": null,
+        "startTime": "2020-04-02T10:00:00",
+        "endTime": "2020-04-02T11:30:00"
+    },
+    {
+        "id": "4a63356b-3ca6-40c6-84ff-2b30360baf08",
+        "createdAt": "2020-01-01T08:21:59.730Z",
+        "createdBy": "development@icapps.com",
+        "spanRow": false,
+        "program": { "id": "3185e221-73ca-4b5a-93a9-1cc2d0b5df76" },
+        "title": null,
+        "comment": null,
+        "session": { "id": "8c87028d-31f6-414b-b02d-e7431b6a7243" },
+        "room": { "id": "ce63d11d-c51f-4320-a997-fb31b42a6e08" },
+        "startTime": "2020-04-02T07:00:00",
+        "endTime": "2020-04-02T07:30:00"
+    }
+]
