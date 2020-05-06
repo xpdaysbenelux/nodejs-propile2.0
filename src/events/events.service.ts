@@ -12,7 +12,7 @@ import { CreateEventRequest } from './dto/create-event.dto';
 import { IUserSession } from '../_shared/constants';
 import { ProgramNotFoud } from '../programs/errors';
 import { RoomNotFound } from '../rooms/errors';
-import { SessionNotFound } from 'src/sessions/errors';
+import { SessionNotFound } from '../sessions/errors';
 import { EndTimeMustBeLaterThanStartTime } from './errors';
 
 @Injectable()
