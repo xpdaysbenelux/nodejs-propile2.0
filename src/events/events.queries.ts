@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { SelectQueryBuilder } from 'typeorm';
 
-import { EventRepository } from '../database';
+import { EventRepository, Event } from '../database';
 import { EventResponse } from './dto';
 
 const eventFields = [
@@ -43,21 +43,11 @@ export class EventsQueries {
     }
 
     async getEvents(programId: string): Promise<EventResponse[]> {
-        /* const events = this.eventRepository
-            .createQueryBuilder('event')
-            .select(eventFields)
-            .where('event.program.id = :programId', { programId })
-            .innerJoin('event.program', 'program')
-            .leftJoin('event.room', 'room')
-            .leftJoin('event.session', 'session')
-            .getManyAndCount(); */
-
-        const [events] = await this.selectEventsColumns(
+        return await this.selectEventsColumns(
             this.eventRepository.createQueryBuilder('event'),
         )
             .where('event.program.id = :programId', { programId })
-            .getManyAndCount();
-        return events;
+            .getMany();
     }
 
     private selectEventsColumns(
