@@ -12,10 +12,10 @@ export class Event extends BaseEntity {
     spanRow: boolean;
 
     @Column({ nullable: true, enum: EventTitle, type: 'enum' })
-    title: EventTitle;
+    title?: EventTitle;
 
     @Column({ type: 'text', nullable: true })
-    comment: string;
+    comment?: string;
 
     @Column({ nullable: false })
     startTime: Date;
@@ -35,12 +35,12 @@ export class Event extends BaseEntity {
         room => room.events,
         { onDelete: 'CASCADE', nullable: true },
     )
-    room: Room;
+    room?: Room;
 
     @ManyToOne(
         () => Session,
         session => session.events,
         { nullable: true },
     )
-    session: Session;
+    session?: Session;
 }

@@ -10,12 +10,12 @@ import { ProgramResponse } from '../../programs/dto';
 export class EventResponse extends BaseEntityResponse {
     readonly spanRow: boolean;
     readonly program: ProgramResponse;
-    readonly title: EventTitle;
-    readonly session: SessionResponse;
-    readonly room: RoomResponse;
+    readonly title?: EventTitle;
+    readonly session?: SessionResponse;
+    readonly room?: RoomResponse;
     readonly startTime: Date;
     readonly endTime: Date;
-    readonly comment: string;
+    readonly comment?: string;
 }
 
 export class EventIdParam {
