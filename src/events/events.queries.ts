@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { EventRepository, Event } from '../database';
+import { EventRepository } from '../database';
 import { EventResponse } from './dto';
 
 const eventFields = [
@@ -21,6 +21,8 @@ const eventFields = [
     'session.id',
     'session.title',
     'session.duration',
+    'session.firstPresenter',
+    'session.secondPresenter',
     'session.maxParticipants',
 ];
 

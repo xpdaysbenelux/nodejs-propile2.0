@@ -118,6 +118,7 @@ describe('EventsService', () => {
                 ),
             ).once();
         });
+
         it('should create an event correctly #2', async () => {
             const selectedProgram = createTestProgram({
                 id: titleBody.programId,
@@ -159,6 +160,7 @@ describe('EventsService', () => {
                 ),
             ).once();
         });
+
         it('should throw an error when the program is not found', async () => {
             when(
                 programRepository.findOne(
@@ -170,6 +172,7 @@ describe('EventsService', () => {
                 eventsService.createEvent(titleBody, currentUser),
             ).rejects.toThrowError(ProgramNotFoud);
         });
+
         it('should throw an error when the room is not found', async () => {
             when(
                 programRepository.findOne(
@@ -186,6 +189,7 @@ describe('EventsService', () => {
                 eventsService.createEvent(sessionBody, currentUser),
             ).rejects.toThrowError(RoomNotFound);
         });
+
         it('should throw an error when the session is not found', async () => {
             when(
                 programRepository.findOne(
@@ -207,6 +211,7 @@ describe('EventsService', () => {
                 eventsService.createEvent(sessionBody, currentUser),
             ).rejects.toThrowError(SessionNotFound);
         });
+
         it('should throw an error when the start time is later than the end time', async () => {
             when(
                 programRepository.findOne(

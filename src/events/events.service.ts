@@ -43,18 +43,24 @@ export class EventsService {
 
         const event = new Event();
 
-        const program = await this.programRepository.findOne({
-            id: programId,
-        });
+        const [program, room, session] = await Promise.all([
+            this.programRepository.findOne({
+                id: programId,
+            }),
+            this.roomRepository.findOne({
+                id: roomId,
+            }),
+            this.sessionRepository.findOne({
+                id: sessionId,
+            }),
+        ]);
+
         if (!program) {
             throw new ProgramNotFoud();
         }
         event.program = program;
 
         if (roomId) {
-            const room = await this.roomRepository.findOne({
-                id: roomId,
-            });
             if (!room) {
                 throw new RoomNotFound();
             }
@@ -62,9 +68,6 @@ export class EventsService {
         } else event.room = null;
 
         if (sessionId) {
-            const session = await this.sessionRepository.findOne({
-                id: sessionId,
-            });
             if (!session) {
                 throw new SessionNotFound();
             }
