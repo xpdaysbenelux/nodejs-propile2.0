@@ -13,7 +13,8 @@ import { IUserSession } from '../_shared/constants';
 import { ProgramNotFoud } from '../programs/errors';
 import { RoomNotFound } from '../rooms/errors';
 import { SessionNotFound } from '../sessions/errors';
-import { EndTimeMustBeLaterThanStartTime } from './errors';
+import { EndTimeMustBeLaterThanStartTime, EventNotFound } from './errors';
+import { UpdateEventRequest } from './dto';
 
 @Injectable()
 export class EventsService {
@@ -89,5 +90,76 @@ export class EventsService {
 
         await this.eventRepository.save(event);
         return event.id;
+    }
+
+    async updateEvent(
+        body: UpdateEventRequest,
+        eventId: string,
+        user: IUserSession,
+    ): Promise<string> {
+        const {
+            spanRow,
+            programId,
+            title,
+            startTime,
+            endTime,
+            comment,
+            roomId,
+            sessionId,
+        } = body;
+        const eventStartTime = parseISO(startTime);
+        const eventEndTime = parseISO(endTime);
+
+        const [existingEvent, program, room, session] = await Promise.all([
+            this.eventRepository.findOne({
+                where: { id: eventId },
+            }),
+            this.programRepository.findOne({
+                id: programId,
+            }),
+            this.roomRepository.findOne({
+                id: roomId,
+            }),
+            this.sessionRepository.findOne({
+                id: sessionId,
+            }),
+        ]);
+
+        if (!existingEvent) throw new EventNotFound();
+
+        if (!program) {
+            throw new ProgramNotFoud();
+        }
+        existingEvent.program = program;
+
+        if (roomId) {
+            if (!room) {
+                throw new RoomNotFound();
+            }
+            existingEvent.room = room;
+        } else existingEvent.room = null;
+
+        if (sessionId) {
+            if (!session) {
+                throw new SessionNotFound();
+            }
+            existingEvent.session = session;
+        } else existingEvent.session = null;
+
+        if (title) existingEvent.title = title;
+        else existingEvent.title = null;
+
+        if (!isAfter(eventEndTime, eventStartTime)) {
+            throw new EndTimeMustBeLaterThanStartTime();
+        }
+        existingEvent.startTime = eventStartTime;
+        existingEvent.endTime = eventEndTime;
+        existingEvent.spanRow = spanRow;
+        existingEvent.comment = comment;
+        existingEvent.createdBy = user.email;
+        existingEvent.createdAt = new Date();
+
+        await this.eventRepository.save(existingEvent);
+        return existingEvent.id;
     }
 }

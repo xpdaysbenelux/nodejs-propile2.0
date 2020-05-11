@@ -8,3 +8,9 @@ export class EndTimeMustBeLaterThanStartTime extends BadRequestException {
         );
     }
 }
+
+export class EventNotFound extends NotFoundException {
+    constructor() {
+        super('The event was not found.', 'EVENT_NOT_FOUND');
+    }
+}

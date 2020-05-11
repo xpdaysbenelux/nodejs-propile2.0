@@ -1,4 +1,12 @@
-import { Body, UseGuards, Controller, Post, Get, Param } from '@nestjs/common';
+import {
+    Body,
+    UseGuards,
+    Controller,
+    Post,
+    Get,
+    Param,
+    Put,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
 import { EventsService } from './events.service';
@@ -44,6 +52,22 @@ export class EventController {
         @UserSession() session: IUserSession,
     ): Promise<EventResponse> {
         const eventId = await this.eventsService.createEvent(body, session);
+        return this.eventsQueries.getEvent(eventId);
+    }
+
+    @RequiredPermissions({ programs: { edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
+    @Put(':eventId')
+    async updateEvent(
+        @Body() body: CreateEventRequest,
+        @Param() params: EventIdParam,
+        @UserSession() session: IUserSession,
+    ): Promise<EventResponse> {
+        const eventId = await this.eventsService.updateEvent(
+            body,
+            params.eventId,
+            session,
+        );
         return this.eventsQueries.getEvent(eventId);
     }
 }
