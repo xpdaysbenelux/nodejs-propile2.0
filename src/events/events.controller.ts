@@ -6,6 +6,7 @@ import {
     Get,
     Param,
     Put,
+    Delete,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -69,5 +70,13 @@ export class EventController {
             session,
         );
         return this.eventsQueries.getEvent(eventId);
+    }
+
+    @RequiredPermissions({ programs: { edit: true } })
+    @UseGuards(RequiredPermissionsGuard)
+    @Delete(':eventId')
+    async deleteProgram(@Param() params: EventIdParam): Promise<string> {
+        const programId = await this.eventsService.deleteEvent(params.eventId);
+        return programId;
     }
 }

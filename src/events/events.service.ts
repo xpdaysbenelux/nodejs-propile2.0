@@ -162,4 +162,16 @@ export class EventsService {
         await this.eventRepository.save(existingEvent);
         return existingEvent.id;
     }
+
+    async deleteEvent(eventId: string): Promise<string> {
+        const existingEvent = await this.eventRepository.findOne({
+            where: { id: eventId },
+        });
+        if (!existingEvent) {
+            throw new EventNotFound();
+        }
+
+        await this.eventRepository.delete(eventId);
+        return eventId;
+    }
 }
