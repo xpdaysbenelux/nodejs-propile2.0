@@ -5,6 +5,7 @@ import {
     objectContaining,
     when,
     verify,
+    anything,
 } from 'ts-mockito';
 import { TestingModule, Test } from '@nestjs/testing';
 import { getCustomRepositoryToken } from '@nestjs/typeorm';
@@ -495,6 +496,33 @@ describe('EventsService', () => {
             await expect(
                 eventsService.updateEvent(updateBody, eventId, currentUser),
             ).rejects.toThrowError(EndTimeMustBeLaterThanStartTime);
+        });
+    });
+
+    describe('deleteEvent', () => {
+        it('should delete a event sucessfully', async () => {
+            const event = createTestTitleEvent({
+                id: faker.random.uuid(),
+            });
+
+            when(
+                eventRepository.findOne(
+                    objectContaining({
+                        where: { id: event.id },
+                    }),
+                ),
+            ).thenResolve(event);
+
+            await eventsService.deleteEvent(event.id);
+            verify(eventRepository.delete(event.id)).once();
+        });
+
+        it('should throw an error when the event does not exist', async () => {
+            when(eventRepository.findOne(anything())).thenResolve(null);
+
+            await expect(
+                eventsService.deleteEvent(faker.random.uuid()),
+            ).rejects.toThrowError(EventNotFound);
         });
     });
 });
