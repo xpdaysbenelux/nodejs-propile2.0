@@ -487,16 +487,12 @@ describe('EventsService', () => {
 
     describe('deleteEvent', () => {
         it('should delete a event sucessfully', async () => {
-            const event = createTestTitleEvent({
+            const event = createTestEvent({
                 id: faker.random.uuid(),
             });
 
             when(
-                eventRepository.findOne(
-                    objectContaining({
-                        where: { id: event.id },
-                    }),
-                ),
+                eventRepository.findOne(objectContaining({ id: event.id })),
             ).thenResolve(event);
 
             await eventsService.deleteEvent(event.id);

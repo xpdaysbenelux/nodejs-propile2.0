@@ -163,7 +163,7 @@ export class EventsService {
 
     async deleteEvent(eventId: string): Promise<string> {
         const existingEvent = await this.eventRepository.findOne({
-            where: { id: eventId },
+            id: eventId,
         });
         if (!existingEvent) {
             throw new EventNotFound();
