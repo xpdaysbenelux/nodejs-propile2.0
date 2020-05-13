@@ -111,9 +111,7 @@ export class EventsService {
         const eventEndTime = parseISO(endTime);
 
         const [existingEvent, program, room, session] = await Promise.all([
-            this.eventRepository.findOne({
-                where: { id: eventId },
-            }),
+            this.eventRepository.findOne({ id: eventId }),
             this.programRepository.findOne({
                 id: programId,
             }),

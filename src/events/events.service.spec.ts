@@ -24,8 +24,7 @@ import {
     createTestProgram,
     createTestRoom,
     createShortTestSession,
-    createTestTitleEvent,
-    createTestSessionEvent,
+    createTestEvent,
 } from '../_util/testing';
 import { ProgramNotFoud } from '../programs/errors';
 import { RoomNotFound } from '../rooms/errors';
@@ -254,20 +253,20 @@ describe('EventsService', () => {
     describe('updateEvent', () => {
         it('should update an event correctly #1', async () => {
             const eventId = faker.random.uuid();
-            const exisitingTitleEvent = createTestTitleEvent({
-                id: eventId,
-                startTime: '2020-04-02T10:00:00',
-                endTime: '2020-04-02T10:30:00',
-            });
             const selectedProgram = createTestProgram({
                 id: titleBody.programId,
             });
+            const exisitingEvent = createTestEvent({
+                id: eventId,
+                title: faker.random.arrayElement(Object.values(EventTitle)),
+                program: selectedProgram,
+                startTime: '2020-04-02T10:00:00',
+                endTime: '2020-04-02T10:30:00',
+            });
 
             when(
-                eventRepository.findOne(
-                    objectContaining({ where: { id: eventId } }),
-                ),
-            ).thenResolve(exisitingTitleEvent);
+                eventRepository.findOne(objectContaining({ id: eventId })),
+            ).thenResolve(exisitingEvent);
 
             when(
                 programRepository.findOne(
@@ -293,11 +292,6 @@ describe('EventsService', () => {
 
         it('should update an event correctly #2', async () => {
             const eventId = faker.random.uuid();
-            const exisitingSessionEvent = createTestSessionEvent({
-                id: eventId,
-                startTime: '2020-04-02T10:00:00',
-                endTime: '2020-04-02T10:30:00',
-            });
             const selectedProgram = createTestProgram({
                 id: titleBody.programId,
             });
@@ -305,12 +299,18 @@ describe('EventsService', () => {
             const selectedSession = createShortTestSession({
                 id: sessionBody.sessionId,
             });
+            const exisitingEvent = createTestEvent({
+                id: eventId,
+                program: selectedProgram,
+                session: selectedSession,
+                room: selectedRoom,
+                startTime: '2020-04-02T10:00:00',
+                endTime: '2020-04-02T10:30:00',
+            });
 
             when(
-                eventRepository.findOne(
-                    objectContaining({ where: { id: eventId } }),
-                ),
-            ).thenResolve(exisitingSessionEvent);
+                eventRepository.findOne(objectContaining({ id: eventId })),
+            ).thenResolve(exisitingEvent);
 
             when(
                 programRepository.findOne(
@@ -349,9 +349,7 @@ describe('EventsService', () => {
             const eventId = faker.random.uuid();
 
             when(
-                eventRepository.findOne(
-                    objectContaining({ where: { id: eventId } }),
-                ),
+                eventRepository.findOne(objectContaining({ id: eventId })),
             ).thenResolve(null);
 
             await expect(
@@ -363,14 +361,8 @@ describe('EventsService', () => {
             const eventId = faker.random.uuid();
 
             when(
-                eventRepository.findOne(
-                    objectContaining({ where: { id: eventId } }),
-                ),
-            ).thenResolve(
-                createTestTitleEvent({
-                    id: eventId,
-                }),
-            );
+                eventRepository.findOne(objectContaining({ id: eventId })),
+            ).thenResolve(createTestEvent({ id: eventId }));
 
             when(
                 programRepository.findOne(
@@ -387,11 +379,9 @@ describe('EventsService', () => {
             const eventId = faker.random.uuid();
 
             when(
-                eventRepository.findOne(
-                    objectContaining({ where: { id: eventId } }),
-                ),
+                eventRepository.findOne(objectContaining({ id: eventId })),
             ).thenResolve(
-                createTestTitleEvent({
+                createTestEvent({
                     id: eventId,
                 }),
             );
@@ -417,11 +407,9 @@ describe('EventsService', () => {
             const eventId = faker.random.uuid();
 
             when(
-                eventRepository.findOne(
-                    objectContaining({ where: { id: eventId } }),
-                ),
+                eventRepository.findOne(objectContaining({ id: eventId })),
             ).thenResolve(
-                createTestTitleEvent({
+                createTestEvent({
                     id: eventId,
                 }),
             );
@@ -453,11 +441,9 @@ describe('EventsService', () => {
             const eventId = faker.random.uuid();
 
             when(
-                eventRepository.findOne(
-                    objectContaining({ where: { id: eventId } }),
-                ),
+                eventRepository.findOne(objectContaining({ id: eventId })),
             ).thenResolve(
-                createTestTitleEvent({
+                createTestEvent({
                     id: eventId,
                 }),
             );
